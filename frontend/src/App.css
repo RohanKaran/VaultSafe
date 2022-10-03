@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
+:root {
+  --bs-body-bg: #ecf0ef;
+}
+
+.card {
+  padding: 1rem;
+  width: 25rem !important;
+  max-width: 100% !important;
+}
+
+.card button {
+  margin: 2.5%;
+  width: 35%;
+}
+
+.modal button {
+  width: 5rem;
+}
+
+.home-container {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#sidebar-home {
+  height: 100vh !important;
+  position: fixed !important;
+  overflow: hidden !important;
+  width: 300px;
+}
+
+#main-home {
+  flex: 1 1;
+  padding-left: 350px;
+}
+
+.header-home {
+  padding: 1rem;
+}
+
+.sidebar-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-btn {
+  transition: width 0.3s;
+  width: 150px;
+  padding: 1px 15px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #adadad;
+  text-decoration: none;
+  margin: 0 auto;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+span {
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.password-card {
+  background-color: white;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+button,
+input,
+.card {
+  border-radius: 0 !important;
+}
+
+a {
+  text-decoration: none;
+}
