@@ -2,10 +2,10 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from app.core.utils import random_hash
-from app.crud.base import CRUDBase
-from app.models import Password
-from app.schemas.password import PasswordCreate, PasswordUpdate
+from ..core.utils import random_hash
+from ..crud.base import CRUDBase
+from ..models import Password
+from ..schemas.password import PasswordCreate, PasswordUpdate
 
 
 class CRUDPassword(CRUDBase[Password, PasswordCreate, PasswordUpdate]):

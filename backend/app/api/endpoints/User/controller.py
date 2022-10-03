@@ -1,7 +1,6 @@
 from typing import Any
 
-from fastapi import Body, Depends
-from fastapi import Path, Request
+from fastapi import Body, Depends, Path, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -10,6 +9,7 @@ from app.models import User
 from app.schemas.generic import Response
 from app.schemas.token import Token
 from app.schemas.user import UserClient, UserCreateClient
+
 from . import api
 from .service import UserService
 

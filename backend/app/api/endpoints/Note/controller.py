@@ -4,11 +4,12 @@ from fastapi import Body, Depends, Path
 from sqlalchemy.orm import Session
 
 from app.schemas.generic import Response
-from app.schemas.note import NoteClient, NoteUpdate, NoteCreateClient
+from app.schemas.note import NoteClient, NoteCreateClient, NoteUpdate
 from app.schemas.user import UserClient
+
+from ... import deps
 from . import api
 from .service import NoteService
-from ... import deps
 
 
 @api.post("/add-note/", response_model=Response, status_code=201)

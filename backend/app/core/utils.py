@@ -1,11 +1,11 @@
 import uuid
 from datetime import datetime, timezone
-from typing import Optional, Dict
+from typing import Dict, Optional
 
 from itsdangerous import URLSafeTimedSerializer
-from sendgrid import SendGridAPIClient, Mail
+from sendgrid import Mail, SendGridAPIClient
 
-from app.core import config
+from . import config
 
 
 def random_hash() -> str:

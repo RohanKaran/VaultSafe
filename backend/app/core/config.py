@@ -1,6 +1,7 @@
 from typing import Any, Dict, Optional, Union
+
 from pydantic import BaseSettings, validator
-from pydantic.networks import PostgresDsn, EmailStr
+from pydantic.networks import PostgresDsn
 
 
 class Config(BaseSettings):
@@ -9,14 +10,14 @@ class Config(BaseSettings):
     SECRET_SALT: str
     ENV: str
 
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     SESSION_TOKEN_EXPIRE_DAYS: int = 7
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 1
 
     # Sendgrid Config
     SENDGRID_APIKEY: str
-    EMAIL_FROM: EmailStr
-    EMAIL_BCC: EmailStr
+    EMAIL_FROM: str
+    EMAIL_BCC: str
 
     class Config:
         env_file = ".env"

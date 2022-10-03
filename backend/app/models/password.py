@@ -1,6 +1,6 @@
-from sqlalchemy import ForeignKey, Column, DateTime, func, String
+from sqlalchemy import Column, DateTime, ForeignKey, String, func
 
-from app.database.base import Base
+from ..database.base import Base
 
 
 class Password(Base):

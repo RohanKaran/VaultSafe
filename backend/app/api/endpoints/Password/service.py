@@ -6,12 +6,8 @@ from starlette import status
 
 from app import crud
 from app.schemas.generic import Response
-from app.schemas.password import (
-    PasswordCreate,
-    PasswordClient,
-    PasswordCreateClient,
-    PasswordUpdate,
-)
+from app.schemas.password import (PasswordClient, PasswordCreate,
+                                  PasswordCreateClient, PasswordUpdate)
 
 
 class PasswordService:

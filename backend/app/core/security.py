@@ -4,7 +4,7 @@ from typing import Dict, Optional
 from jose import jwt
 from passlib.context import CryptContext
 
-from app.core import config
+from . import config
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

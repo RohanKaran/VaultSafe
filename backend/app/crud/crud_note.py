@@ -2,10 +2,10 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from app.core.utils import random_hash
-from app.crud.base import CRUDBase
-from app.models import Note
-from app.schemas.note import NoteCreate, NoteUpdate
+from ..core.utils import random_hash
+from ..crud.base import CRUDBase
+from ..models import Note
+from ..schemas.note import NoteCreate, NoteUpdate
 
 
 class CRUDNote(CRUDBase[Note, NoteCreate, NoteUpdate]):

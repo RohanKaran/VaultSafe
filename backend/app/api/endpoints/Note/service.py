@@ -6,7 +6,8 @@ from starlette import status
 
 from app import crud
 from app.schemas.generic import Response
-from app.schemas.note import NoteCreate, NoteClient, NoteUpdate, NoteCreateClient
+from app.schemas.note import (NoteClient, NoteCreate, NoteCreateClient,
+                              NoteUpdate)
 
 
 class NoteService:

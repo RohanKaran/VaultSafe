@@ -1,14 +1,14 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from app.core import config
-from app.core.security import get_password_hash
-from app.core.utils import random_hash
-from app.crud.base import CRUDBase
-from app.models import User
-from app.schemas.user import UserCreate, UserUpdate
+from ..core import config
+from ..core.security import get_password_hash
+from ..core.utils import random_hash
+from ..crud.base import CRUDBase
+from ..models import User
+from ..schemas.user import UserCreate, UserUpdate
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
