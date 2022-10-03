@@ -4,8 +4,7 @@ from fastapi import Body, Depends, Path
 from sqlalchemy.orm import Session
 
 from app.schemas.generic import Response
-from app.schemas.password import (PasswordClient, PasswordCreateClient,
-                                  PasswordUpdate)
+from app.schemas.password import PasswordClient, PasswordCreateClient, PasswordUpdate
 from app.schemas.user import UserClient
 
 from ... import deps
