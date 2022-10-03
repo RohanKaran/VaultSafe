@@ -14,7 +14,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { NewAccountPage } from "./pages/NewAccountPage";
 import { NotePage } from "./pages/NotePage";
 
-function App() {
+export default function App() {
 	return (
 		<div>
 			<Router>
@@ -37,5 +37,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App;
