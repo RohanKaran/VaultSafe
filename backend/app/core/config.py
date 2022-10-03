@@ -29,6 +29,9 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
 
     FRONTEND_URL = "*"
+    SENDGRID_APIKEY = ""
+    EMAIL_FROM = ""
+    EMAIL_BCC = ""
 
 
 class ProductionConfig(Config):
