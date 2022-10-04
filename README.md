@@ -7,11 +7,13 @@ To setup the project locally read these wiki pages and follow the instructions:
 ### Backend
 The project runs on Python 3.
 
-1. Create and activate virtual environment:
+1. Create environment:
 ```
 cd backend
 virtualenv venv
 ```
+
+2. Activate virtual environment:
 For Linux Users:
 ```
 source ./venv/Scripts/activate
@@ -21,7 +23,7 @@ For Windows Command Line Users:
 venv\Scripts\activate
 ```
 
-2. Install all the dependencies in `requirements.txt` file:
+3. Install all the dependencies in `requirements.txt` file:
 ```
 pip install -r requirements.txt
 ```
