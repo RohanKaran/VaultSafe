@@ -1,10 +1,8 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9ede42a4-0d59-42c6-8de7-670db9f517c8/deploy-status)](https://app.netlify.com/sites/vaultsafe/deploys)
-
 # VaultSafe
 
 ## Setup and run
 
-To setup the project locally 
+To set up the project locally 
 1. [Fork the repo](https://github.com/RohanKaran/VaultSafe/fork)
 2. Then clone the repo in your local system
 ```
