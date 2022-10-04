@@ -71,7 +71,7 @@ npm install
 npm start
 ```
 
-- If you are facing any problem setting up the local servers ask [here](https://github.com/RohanKaran/VaultSafe/discussions/new?category=q-a)
+- If you are facing any problem setting up the project locally ask [here](https://github.com/RohanKaran/VaultSafe/discussions/new?category=q-a)
 
 ### Default Local Credentials
 - Username: `localuser`
