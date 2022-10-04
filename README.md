@@ -1,6 +1,8 @@
 # VaultSafe
 VaultSafe is a website where users can store passwords and notes securely. It uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to encrypt the data. 
 
+⭐ the repo if you like it.
+
 ## Tech Stack
 - Backend: [FastAPI](https://fastapi.tiangolo.com/)
 - Frontend: [ReactJS](https://reactjs.org/docs/getting-started.html)
