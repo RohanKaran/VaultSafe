@@ -2,7 +2,15 @@
 
 ## Setup and run
 
-To setup the project locally read these wiki pages and follow the instructions:
+To setup the project locally 
+1. [!Fork the repo](https://github.com/RohanKaran/VaultSafe/fork)
+2. Then clone the repo in your local system
+```
+git clone https://github.com/YOUR_USERNAME/VaultSafe
+```
+Detailed Tutorial:
+https://docs.github.com/en/get-started/quickstart/fork-a-repo
+https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 
 ### Backend
 The project runs on Python 3.
