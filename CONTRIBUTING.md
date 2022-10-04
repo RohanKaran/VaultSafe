@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-* Remember that this is an inclusive community, committed to creating a safe, positive environment.  See the full [Code of Conduct](../code_of_conduct.md).
+* Remember that this is an inclusive community, committed to creating a safe, positive environment.  See the full [Code of Conduct](./code_of_conduct.md).
 * Please consider raising an issue before submitting a pull request (PR) to solve a problem that is not present in our [issue tracker](https://github.com/RohanKaran/VaultSafe/issues). This allows maintainers to first validate the issue you are trying to solve and also reference the PR to a specific issue.
 * When submitting a PR, please follow [this template](PULL_REQUEST_TEMPLATE.md) (which will probably be already filled up once you create the PR).
 * When submitting a PR with changes to frontend (e.g. new screen, or an email template), please add screenshots to the PR description.
