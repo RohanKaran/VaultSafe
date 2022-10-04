@@ -59,7 +59,6 @@ python main.py
 ### Frontend
 7. Move to frontend directory:
 ```
-cd ..
 cd frontend
 ```
 
@@ -71,6 +70,8 @@ npm install
 ```
 npm start
 ```
+
+- If you are facing any problem setting up the local servers ask [here](https://github.com/RohanKaran/VaultSafe/discussions/new?category=q-a)
 
 ### Default Local Credentials
 - Username: `localuser`
