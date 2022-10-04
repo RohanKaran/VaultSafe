@@ -38,7 +38,7 @@ class UserService:
 
         registration_mail = crud.crud_registration_mail.get_by_email(db=db, email=user.email)
         if registration_mail:
-            if datetime.utcnow() - registration_mail.datetime < timedelta(hours=24):
+            if datetime.utcnow() - registration_mail.datetime < timedelta(hours=20):
                 print(registration_mail.datetime - datetime.utcnow())
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
@@ -92,6 +92,11 @@ class UserService:
                 password=password,
             ),
         )
+
+        registration_mail = crud.crud_registration_mail.get_by_email(db=db, email=user.email)
+        if registration_mail:
+            crud.crud_registration_mail.remove(db=db, id=registration_mail.id)
+
         return user
 
     @staticmethod
