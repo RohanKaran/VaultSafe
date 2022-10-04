@@ -44,3 +44,5 @@ Fixes # [ISSUE]
 - [ ] My PR currently breaks something (fix or feature that would cause existing functionality to not work as expected)
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] Any dependent changes have been published in downstream modules
+
+P.S. - Don't forget to ⭐ the repo 😉

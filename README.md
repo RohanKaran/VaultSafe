@@ -4,7 +4,7 @@ VaultSafe is a website where users can store passwords and notes securely. It us
 ## Tech Stack
 - Backend: [FastAPI](https://fastapi.tiangolo.com/)
 - Frontend: [ReactJS](https://reactjs.org/docs/getting-started.html)
-- UI: [React-BootStrap](https://react-bootstrap.github.io)
+- UI: [React-Bootstrap](https://react-bootstrap.github.io)
 
 ## Setup and run
 
