@@ -73,32 +73,32 @@ export function SideBar() {
 						</MenuItem>
 					</SubMenu>
 				</Menu>
-
-				<SidebarFooter>
-					<div
-						className="sidebar-btn-wrapper"
-						style={{padding: "20px 24px",}}
-					>
-						<a
-							href="https://github.com/RohanKaran/password-manager"
-							target="_blank"
-							className="sidebar-btn"
-							rel="noopener noreferrer"
-						>
-							<FaGithub />
-							<span
-								style={{
-									whiteSpace: "nowrap",
-									textOverflow: "ellipsis",
-									overflow: "hidden",
-								}}
-							>
-                Source Code
-							</span>
-						</a>
-					</div>
-				</SidebarFooter>
 			</SidebarContent>
+
+			<SidebarFooter>
+				<div
+					className="sidebar-btn-wrapper"
+					style={{padding: "20px 24px",}}
+				>
+					<a
+						href="https://github.com/RohanKaran/password-manager"
+						target="_blank"
+						className="sidebar-btn"
+						rel="noopener noreferrer"
+					>
+						<FaGithub />
+						<span
+							style={{
+								whiteSpace: "nowrap",
+								textOverflow: "ellipsis",
+								overflow: "hidden",
+							}}
+						>
+                Source Code
+						</span>
+					</a>
+				</div>
+			</SidebarFooter>
 		</ProSidebar>
 	);
 }

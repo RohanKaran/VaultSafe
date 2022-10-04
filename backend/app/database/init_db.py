@@ -1,11 +1,10 @@
 from sqlalchemy.orm import Session
 
 from .. import crud
-from ..core.security import get_password_hash
 from ..core.utils import random_hash
 from ..database import Base
-from ..models import User
 from .session import engine
+from ..schemas.user import UserCreate
 
 
 def init_db(db: Session) -> None:
@@ -14,10 +13,9 @@ def init_db(db: Session) -> None:
 
     crud.crud_user.create(
         db=db,
-        user=User(
-            id=random_hash(),
+        user=UserCreate(
             username="localuser",
             email="user@example.com",
-            password=get_password_hash("localpassword"),
+            password="localpassword",
         ),
     )
