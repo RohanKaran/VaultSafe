@@ -49,11 +49,11 @@ export function AuthProvider({ children }) {
 					access: data.access_token,
 					refresh: null,
 				}));
-				setUser(jwt_decode(data.token));
+				setUser(jwt_decode(data.access_token));
 
 				await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/`, {
 					method: "GET",
-					headers: { Authorization: `Bearer ${data.token}` },
+					headers: { Authorization: `Bearer ${data.access_token}` },
 				})
 					.then((res) => res.json())
 					.then((data) => {
