@@ -24,7 +24,7 @@ virtualenv venv
 2. Activate virtual environment:
 - For Linux Users:
 ```
-source ./venv/Scripts/activate
+source ./venv/bin/activate
 ```
 - For Windows Command Line Users:
 ```
