@@ -9,8 +9,8 @@ To setup the project locally
 git clone https://github.com/YOUR_USERNAME/VaultSafe
 ```
 Detailed Tutorial:
-https://docs.github.com/en/get-started/quickstart/fork-a-repo
-https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+1. https://docs.github.com/en/get-started/quickstart/fork-a-repo
+2. https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 
 ### Backend
 The project runs on Python 3.
