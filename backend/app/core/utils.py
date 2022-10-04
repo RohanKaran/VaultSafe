@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from typing import Dict, Optional
 
 from itsdangerous import URLSafeTimedSerializer
-from sendgrid import Mail, SendGridAPIClient
+from sendgrid import Mail, SendGridAPIClient, HtmlContent
 
 from . import config
 
@@ -48,7 +48,7 @@ def send_email(
         from_email=config.EMAIL_FROM,
         to_emails=[email_to],
         subject=subject_template,
-        html_content=html_template,
+        html_content=HtmlContent(html_template),
     )
     message.add_bcc(config.EMAIL_BCC)
     try:
@@ -66,7 +66,14 @@ def send_new_account_email(
     project_name = "VaultSafe"
     subject = f"Welcome to {project_name}, {username}"
     link = f"{server_host}/new-account/{token}"
-    message = f"Hi {username}, \nWelcome to {project_name}. Click on the following link to complete your registration. \n\n{link}"
+    print(link)
+    message = f"""
+    <html>
+        <body>
+            Hi {username}, \nWelcome to {project_name}. Click on the following link to complete your registration. \n\n{link}
+        </body>
+    </html>
+    """
     return send_email(
         email_to=email_to,
         subject_template=subject,
