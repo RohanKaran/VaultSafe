@@ -71,6 +71,7 @@ def send_new_account_email(
     <html>
         <body>
             Hi {username}, \nWelcome to {project_name}. Click on the following link to complete your registration. \n\n{link}
+            - VaultSafe Team
         </body>
     </html>
     """
