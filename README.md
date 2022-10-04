@@ -38,24 +38,28 @@ pip install -r requirements.txt
 
 4. Make sure you create `.env` using `.env.template` in both frontend and backend directories.
 
-5. Run the backend:
+5. Create a user:
 ```
 python initial_data.py
+```
+
+6. Run the backend:
+```
 python main.py
 ```
 
 ### Frontend
-6. Move to frontend directory:
+7. Move to frontend directory:
 ```
 cd ..
 cd frontend
 ```
 
-7. Install all the dependencies using npm:
+8. Install all the dependencies using npm:
 ```
 npm install
 ```
-8. Start the server:
+9. Start the server:
 ```
 npm start
 ```
