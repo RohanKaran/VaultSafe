@@ -1,14 +1,17 @@
+from datetime import datetime, timedelta
 from typing import Dict
 
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
-from app import crud
 from app.core import security, utils
 from app.core.security import verify_password
 from app.models.user import User
 from app.schemas.token import Token, TokenPayload
 from app.schemas.user import UserCreate, UserCreateClient
+
+from .... import crud
+from ....schemas.registration_mail import RegistrationMailCreate, RegistrationMailUpdate
 
 
 class UserService:
@@ -19,12 +22,28 @@ class UserService:
                 status_code=status.HTTP_409_CONFLICT,
                 detail="User with this email already exists",
             )
+
+        if crud.crud_user.get_by_username(db=db, username=user.username):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="User with this username already exists",
+            )
+
         token = utils.generate_new_account_token(
             email=user.email,
             username=user.username,
         )
         # To create account locally
         print(token)
+
+        registration_mail = crud.crud_registration_mail.get_by_email(db=db, email=user.email)
+        if registration_mail:
+            if datetime.utcnow() - registration_mail.datetime < timedelta(hours=24):
+                print(registration_mail.datetime - datetime.utcnow())
+                raise HTTPException(
+                    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                    detail="Registration mail was already sent. Check your spam folders.",
+                )
 
         verification_mail = utils.send_new_account_email(
             email_to=user.email,
@@ -37,6 +56,11 @@ class UserService:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST, detail="Could not send email."
             )
+        if registration_mail:
+            registration_mail.datetime = datetime.utcnow()
+            crud.crud_registration_mail.update(db=db, db_obj=registration_mail, obj_in=RegistrationMailUpdate(email=user.email))
+        else:
+            crud.crud_registration_mail.create(db=db, obj_in=RegistrationMailCreate(email=user.email))
 
         return "Email Sent"
 

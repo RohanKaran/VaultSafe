@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from typing import Dict, Optional
 
 from itsdangerous import URLSafeTimedSerializer
-from sendgrid import Mail, SendGridAPIClient, HtmlContent
+from sendgrid import HtmlContent, Mail, SendGridAPIClient
 
 from . import config
 
