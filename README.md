@@ -1,4 +1,6 @@
 ![ESLint](https://github.com/RohanKaran/VaultSafe/actions/workflows/eslint.yml/badge.svg)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green)
+![ReactJS](https://img.shields.io/badge/Frontend-ReactJS-blue)
 
 # VaultSafe
 VaultSafe is a website where users can store passwords and notes securely. It uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to encrypt the data. 
