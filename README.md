@@ -1,4 +1,4 @@
-![ESLint](https://github.com/RohanKaran/VaultSafe/actions/workflows/ESLint.yml/badge.svg)
+![ESLint](https://github.com/RohanKaran/VaultSafe/actions/workflows/eslint.yml/badge.svg)
 
 # VaultSafe
 VaultSafe is a website where users can store passwords and notes securely. It uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to encrypt the data. 
