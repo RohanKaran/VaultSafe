@@ -44,7 +44,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Make sure you create `.env` using `.env.template` in both frontend and backend directories.
+4. Make sure you create `.env` using `.env.template` in both frontend and backend directories. <strong>(important)</strong>
 
 5. Create a user:
 ```
