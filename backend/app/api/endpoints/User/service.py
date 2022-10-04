@@ -42,7 +42,8 @@ class UserService:
                 print(registration_mail.datetime - datetime.utcnow())
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                    detail="Registration mail was already sent. Check your spam folders.",
+                    detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "
+                           "folders.",
                 )
 
         verification_mail = utils.send_new_account_email(
