@@ -15,7 +15,7 @@ Detailed Tutorial:
 ### Backend
 The project runs on Python 3.
 
-1. Create environment:
+1. Create virtual environment:
 ```
 cd backend
 virtualenv venv
@@ -40,6 +40,7 @@ pip install -r requirements.txt
 
 5. Run the backend:
 ```
+python initial_data.py
 python main.py
 ```
 
