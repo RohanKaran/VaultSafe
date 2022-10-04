@@ -1,6 +1,8 @@
 # VaultSafe
 VaultSafe is a website where users can store passwords and notes securely. It uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to encrypt the data. 
 
+⭐ the repo if you like it.
+
 ## Tech Stack
 - Backend: [FastAPI](https://fastapi.tiangolo.com/)
 - Frontend: [ReactJS](https://reactjs.org/docs/getting-started.html)
@@ -42,7 +44,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Make sure you create `.env` using `.env.template` in both frontend and backend directories.
+4. Make sure you create `.env` using `.env.template` in both frontend and backend directories. <strong>(important)</strong>
 
 5. Create a user:
 ```
