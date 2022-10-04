@@ -3,7 +3,7 @@
 ## Setup and run
 
 To setup the project locally 
-1. [!Fork the repo](https://github.com/RohanKaran/VaultSafe/fork)
+1. [Fork the repo](https://github.com/RohanKaran/VaultSafe/fork)
 2. Then clone the repo in your local system
 ```
 git clone https://github.com/YOUR_USERNAME/VaultSafe
