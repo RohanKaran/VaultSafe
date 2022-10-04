@@ -1,7 +1,7 @@
 name: ESLint
 on:
   push:
-    branches: "*"
+    branches: [ "*" ]
     paths:
       - "frontend/**"
       - ".github/workflows/eslint.yml"
