@@ -6,5 +6,5 @@ app = create_app()
 
 if __name__ == "__main__":
     uvicorn.run(
-        app, debug=True, host="0.0.0.0", port=5004, log_level="debug"
+        app, debug=True, log_level="debug"
     )  # pyright: reportGeneralTypeIssues=false

@@ -23,6 +23,8 @@ class UserService:
             email=user.email,
             username=user.username,
         )
+        # To create account locally
+        print(token)
 
         verification_mail = utils.send_new_account_email(
             email_to=user.email,
