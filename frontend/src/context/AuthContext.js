@@ -71,7 +71,7 @@ export function AuthProvider({ children }) {
 						`${process.env.REACT_APP_BACKEND_URL}/user/login/session-token/`,
 						{
 							method: "GET",
-							headers: { Authorization: `Bearer ${data?.token}` },
+							headers: { Authorization: `Bearer ${data?.access_token}` },
 						},
 					)
 						.then((res) => res.json())
