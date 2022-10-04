@@ -2,16 +2,26 @@
 
 ## Setup and run
 
-To setup the project locally read these wiki pages and follow the instructions:
+To setup the project locally 
+1. [Fork the repo](https://github.com/RohanKaran/VaultSafe/fork)
+2. Then clone the repo in your local system
+```
+git clone https://github.com/YOUR_USERNAME/VaultSafe
+```
+Detailed Tutorial:
+1. https://docs.github.com/en/get-started/quickstart/fork-a-repo
+2. https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 
 ### Backend
 The project runs on Python 3.
 
-1. Create and activate virtual environment:
+1. Create environment:
 ```
 cd backend
 virtualenv venv
 ```
+
+2. Activate virtual environment:
 For Linux Users:
 ```
 source ./venv/Scripts/activate
@@ -21,7 +31,7 @@ For Windows Command Line Users:
 venv\Scripts\activate
 ```
 
-2. Install all the dependencies in `requirements.txt` file:
+3. Install all the dependencies in `requirements.txt` file:
 ```
 pip install -r requirements.txt
 ```
