@@ -1,4 +1,5 @@
 ![ESLint](https://github.com/RohanKaran/VaultSafe/actions/workflows/eslint.yml/badge.svg)
+![CodeQL](https://github.com/RohanKaran/VaultSafe/actions/workflows/codeql.yml/badge.svg)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green)
 ![ReactJS](https://img.shields.io/badge/Frontend-ReactJS-blue)
 
