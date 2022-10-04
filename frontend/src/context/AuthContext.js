@@ -39,7 +39,12 @@ export function AuthProvider({ children }) {
 				}),
 			},
 		)
-			.then((res) => res.json())
+			.then((res) => {
+				if (res.status >= 400 && res.status < 600){
+					throw new Error("Bad response");
+				}
+				return res.json();
+			})
 			.then(async (data) => {
 				setAuthTokens({
 					access: data.access_token,
