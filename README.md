@@ -22,6 +22,7 @@ virtualenv venv
 ```
 
 2. Activate virtual environment:
+
 For Linux Users:
 ```
 source ./venv/Scripts/activate
