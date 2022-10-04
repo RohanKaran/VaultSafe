@@ -79,8 +79,8 @@ class UserService:
                 status_code=status.HTTP_403_FORBIDDEN, detail="Wrong Password!"
             )
         return {
-            "token": security.create_access_token({"user_email": user.email}),
-            "token_type": "access",
+            "access_token": security.create_access_token({"user_email": user.email}),
+            "token_type": "bearer",
         }
 
     @staticmethod
@@ -96,8 +96,8 @@ class UserService:
             )
 
         return {
-            "token": security.create_access_token({"user_email": user.email}),
-            "token_type": "access",
+            "access_token": security.create_access_token({"user_email": user.email}),
+            "token_type": "bearer",
         }
 
     @staticmethod
@@ -109,7 +109,7 @@ class UserService:
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="The token couldn't be created.",
             )
-        return Token(token=token, token_type="session")
+        return Token(access_token=token, token_type="session")
 
     @staticmethod
     def get_by_user_id(db: Session, user_id: str) -> User:

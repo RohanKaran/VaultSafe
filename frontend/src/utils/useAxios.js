@@ -26,13 +26,13 @@ const useAxios = () => {
 			await axios
 				.get(`${baseURL}/user/refresh-token/${authTokens.refresh}/`)
 				.then(async (response) => {
-					authTokens.access = response.data.token;
+					authTokens.access = response.data.access_token;
 					localStorage.setItem("authTokens", JSON.stringify(authTokens));
-					setUser(jwt_decode(response.data.token));
+					setUser(jwt_decode(response.data.access_token));
 
 					await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/`, {
 						method: "GET",
-						headers: { Authorization: `Bearer ${response.data.token}` },
+						headers: { Authorization: `Bearer ${response.data.access_token}` },
 					})
 						.then((res) => res.json())
 						.then((data) => {
@@ -41,7 +41,7 @@ const useAxios = () => {
 						})
 						.catch((err) => console.log(err));
 
-					req.headers.Authorization = `Bearer ${response.data.token}`;
+					req.headers.Authorization = `Bearer ${response.data.access_token}`;
 					return req;
 				})
 				.catch((err) => {

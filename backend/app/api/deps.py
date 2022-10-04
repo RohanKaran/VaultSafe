@@ -1,18 +1,16 @@
 from typing import Generator
 
+from app import crud
+from ..core import config, security
+from app.database.session import SessionLocal
+from app.models import User
+from app.schemas.token import TokenPayload
 from fastapi import Depends, HTTPException, status
-from fastapi.security import APIKeyHeader, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from app import crud
-from app.core import config, security
-from app.database.session import SessionLocal
-from app.models import User
-from app.schemas.token import TokenPayload
-
-HEADER_KEY = APIKeyHeader(name="X-API-KEY")
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/api/v1/user/login/access-token/")
 
 

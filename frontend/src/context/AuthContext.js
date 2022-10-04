@@ -42,11 +42,11 @@ export function AuthProvider({ children }) {
 			.then((res) => res.json())
 			.then(async (data) => {
 				setAuthTokens({
-					access: data.token,
+					access: data.access_token,
 					refresh: null,
 				});
 				localStorage.setItem("authTokens", JSON.stringify({
-					access: data.token,
+					access: data.access_token,
 					refresh: null,
 				}));
 				setUser(jwt_decode(data.token));
@@ -77,7 +77,7 @@ export function AuthProvider({ children }) {
 						.then((res) => res.json())
 						.then((data) => {
 							const authTemp = JSON.parse(localStorage.getItem("authTokens"));
-							authTemp.refresh = data.token;
+							authTemp.refresh = data.access_token;
 							setAuthTokens(authTemp);
 							localStorage.setItem("authTokens", JSON.stringify(authTemp));
 						})
