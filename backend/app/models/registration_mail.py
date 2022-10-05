@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, String
-
 from app.database import Base
+from sqlalchemy import Column, DateTime, String
 
 
 class RegistrationMail(Base):

@@ -1,12 +1,11 @@
 from typing import List
 
-from fastapi import HTTPException
-from sqlalchemy.orm import Session
-from starlette import status
-
 from app import crud
 from app.schemas.generic import Response
 from app.schemas.note import NoteClient, NoteCreate, NoteCreateClient, NoteUpdate
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
+from starlette import status
 
 
 class NoteService:

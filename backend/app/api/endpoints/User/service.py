@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
 from typing import Dict
 
-from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
-
 from app.core import security, utils
 from app.core.security import verify_password
 from app.models.user import User
 from app.schemas.token import Token, TokenPayload
 from app.schemas.user import UserCreate, UserCreateClient
+from fastapi import HTTPException, status
+from sqlalchemy.orm import Session
 
 from .... import crud
 from ....schemas.registration_mail import RegistrationMailCreate, RegistrationMailUpdate
