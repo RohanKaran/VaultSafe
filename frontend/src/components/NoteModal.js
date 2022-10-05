@@ -29,6 +29,7 @@ export default function NoteModal() {
 	return (
 		<>
 			<Modal
+				contentClassName="custom-modal"
 				id="modal"
 				show={show}
 				onHide={handleClose}
@@ -39,20 +40,21 @@ export default function NoteModal() {
 			>
 				<Form onSubmit={handleSubmit}>
 					<Modal.Header closeButton>
-						<Modal.Title>NEW NOTE</Modal.Title>
+						<Modal.Title className="modal-title">NEW NOTE</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<div align="left">
 							<Form.Group className="mb-3" controlId="title">
-								<Form.Label>Title</Form.Label>
+								<Form.Label className="form-label">Title</Form.Label>
 								<Form.Control
+									className="text-area"
 									type="text"
 									placeholder="Enter a title"
 									required
 								/>
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="note">
-								<Form.Label>Note</Form.Label>
+								<Form.Label className="form-label">Note</Form.Label>
 								<Form.Control
 									type="textarea"
 									placeholder="Enter your note"
@@ -80,3 +82,6 @@ export default function NoteModal() {
 		</>
 	);
 }
+
+
+
