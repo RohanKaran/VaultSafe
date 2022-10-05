@@ -11,5 +11,9 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "react-router-dom"
+  - package-ecosystem: "pip" # See documentation for possible values
+    directory: "/backend" # Location of package manifests
+    schedule:
+      interval: "weekly"
 
 
