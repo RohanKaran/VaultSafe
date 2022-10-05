@@ -36,14 +36,16 @@ class UserService:
         # To create account locally
         print(token)
 
-        registration_mail = crud.crud_registration_mail.get_by_email(db=db, email=user.email)
+        registration_mail = crud.crud_registration_mail.get_by_email(
+            db=db, email=user.email
+        )
         if registration_mail:
             if datetime.utcnow() - registration_mail.datetime < timedelta(hours=20):
                 print(registration_mail.datetime - datetime.utcnow())
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "
-                           "folders.",
+                    "folders.",
                 )
 
         verification_mail = utils.send_new_account_email(
@@ -59,9 +61,15 @@ class UserService:
             )
         if registration_mail:
             registration_mail.datetime = datetime.utcnow()
-            crud.crud_registration_mail.update(db=db, db_obj=registration_mail, obj_in=RegistrationMailUpdate(email=user.email))
+            crud.crud_registration_mail.update(
+                db=db,
+                db_obj=registration_mail,
+                obj_in=RegistrationMailUpdate(email=user.email),
+            )
         else:
-            crud.crud_registration_mail.create(db=db, obj_in=RegistrationMailCreate(email=user.email))
+            crud.crud_registration_mail.create(
+                db=db, obj_in=RegistrationMailCreate(email=user.email)
+            )
 
         return "Email Sent"
 
@@ -93,7 +101,9 @@ class UserService:
             ),
         )
 
-        registration_mail = crud.crud_registration_mail.get_by_email(db=db, email=user.email)
+        registration_mail = crud.crud_registration_mail.get_by_email(
+            db=db, email=user.email
+        )
         if registration_mail:
             crud.crud_registration_mail.remove(db=db, id=registration_mail.id)
 
