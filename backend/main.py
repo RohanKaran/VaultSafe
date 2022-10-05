@@ -1,5 +1,4 @@
 import uvicorn  # pyright: reportMissingTypeStubs=false
-
 from app import create_app
 
 app = create_app()
