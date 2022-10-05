@@ -79,5 +79,5 @@ npm start
 - If you are facing any problem setting up the project locally ask [here](https://github.com/RohanKaran/VaultSafe/discussions/new?category=q-a)
 
 ### Default Local Credentials
-- Username: `localuser`
+- Email: `user@example.com`
 - Password: `localpassword`
