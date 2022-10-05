@@ -58,6 +58,7 @@ export default function NoteCard(props) {
 		<div className="password-card">
 			<div>
 				<Modal
+					contentClassName="custom-modal"
 					id="modal"
 					show={showupdate}
 					onHide={handleCloseUpdate}

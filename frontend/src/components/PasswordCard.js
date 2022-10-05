@@ -73,6 +73,7 @@ export default function PasswordCard(props) {
 			<div>
 				<Modal
 					id="modal"
+					contentClassName="custom-modal"
 					show={showupdate}
 					onHide={handleCloseUpdate}
 					align="center"
