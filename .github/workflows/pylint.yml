@@ -1,12 +1,22 @@
 name: PyLint
 
 on:
-  pull_request:
+  push:
     branches:
       - "**"
     paths:
       - "backend/**"
       - ".github/workflows/pylint.yml"
+  pull_request:
+    branches:
+      - "master"
+    paths:
+      - "backend/**"
+      - ".github/workflows/pylint.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   lint:
@@ -21,11 +31,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install black isort
       - name: Lint with black
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
-          github_token: ${{ secrets.github_token }}
-          black: true
+          github-token: ${{ secrets.github_token }}
           auto_fix: true
+          black: true
+          black_auto_fix: true
       - name: Sort imports
         run: |
           isort . --profile black
