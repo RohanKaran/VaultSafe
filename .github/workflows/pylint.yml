@@ -8,6 +8,10 @@ on:
       - "backend/**"
       - ".github/workflows/pylint.yml"
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -21,11 +25,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install black isort
       - name: Lint with black
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
-          github_token: ${{ secrets.github_token }}
-          black: true
+          repo-token: ${{ secrets.github_token }}
           auto_fix: true
+          black: true
+          black_auto_fix: true
       - name: Sort imports
         run: |
           isort . --profile black
