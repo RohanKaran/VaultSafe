@@ -15,9 +15,9 @@ class Config(BaseSettings):
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 24
 
     # Sendgrid Config
-    SENDGRID_APIKEY: str
-    EMAIL_FROM: str
-    EMAIL_BCC: str
+    SENDGRID_APIKEY: str = ""
+    EMAIL_FROM: str = ""
+    EMAIL_BCC: str = ""
 
     class Config:
         env_file = ".env"
@@ -29,9 +29,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
 
     FRONTEND_URL = "*"
-    SENDGRID_APIKEY = ""
-    EMAIL_FROM = ""
-    EMAIL_BCC = ""
 
 
 class ProductionConfig(Config):
