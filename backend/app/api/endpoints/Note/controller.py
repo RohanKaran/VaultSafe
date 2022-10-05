@@ -1,11 +1,10 @@
 from typing import Any, List
 
-from fastapi import Body, Depends, Path
-from sqlalchemy.orm import Session
-
 from app.schemas.generic import Response
 from app.schemas.note import NoteClient, NoteCreateClient, NoteUpdate
 from app.schemas.user import UserClient
+from fastapi import Body, Depends, Path
+from sqlalchemy.orm import Session
 
 from ... import deps
 from . import api

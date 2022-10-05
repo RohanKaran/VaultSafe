@@ -1,15 +1,14 @@
 from typing import Generator
 
+from app import crud
+from app.database.session import SessionLocal
+from app.models import User
+from app.schemas.token import TokenPayload
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
-
-from app import crud
-from app.database.session import SessionLocal
-from app.models import User
-from app.schemas.token import TokenPayload
 
 from ..core import config, security
 

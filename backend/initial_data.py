@@ -1,7 +1,6 @@
-from sqlalchemy.orm import Session
-
 from app.database.init_db import init_db
 from app.database.session import SessionLocal
+from sqlalchemy.orm import Session
 
 
 def init() -> None:
