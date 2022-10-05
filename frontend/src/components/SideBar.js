@@ -81,7 +81,7 @@ export function SideBar() {
 					style={{padding: "20px 24px",}}
 				>
 					<a
-						href="https://github.com/RohanKaran/password-manager"
+						href="https://github.com/RohanKaran/VaultSafe"
 						target="_blank"
 						className="sidebar-btn"
 						rel="noopener noreferrer"
