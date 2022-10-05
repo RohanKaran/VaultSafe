@@ -50,6 +50,6 @@ starlette==0.19.1
 traitlets==5.4.0
 typing_extensions==4.3.0
 uvicorn==0.18.3
-watchfiles==0.16.1
+watchfiles==0.17.0
 wcwidth==0.2.5
 websockets==10.3
