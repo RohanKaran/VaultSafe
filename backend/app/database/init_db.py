@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
 
-from .. import crud
-from ..core.utils import random_hash
-from ..database import Base
 from .session import engine
+from .. import crud
+from ..database import Base
 from ..schemas.user import UserCreate
 
 
