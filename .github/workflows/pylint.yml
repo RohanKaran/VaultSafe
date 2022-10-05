@@ -9,7 +9,7 @@ on:
       - ".github/workflows/pylint.yml"
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
       - name: Lint with black
         uses: wearerequired/lint-action@v2
         with:
-          repo-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.github_token }}
           auto_fix: true
           black: true
           black_auto_fix: true

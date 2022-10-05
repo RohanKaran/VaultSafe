@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
-from .session import engine
 from .. import crud
 from ..database import Base
 from ..schemas.user import UserCreate
+from .session import engine
 
 
 def init_db(db: Session) -> None:
