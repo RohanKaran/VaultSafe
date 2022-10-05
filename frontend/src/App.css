@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Condensed&display=swap');
 
 :root {
   --bs-body-bg: #ecf0ef;
@@ -17,6 +18,29 @@
 
 .modal button {
   width: 5rem;
+}
+
+.modal-title{
+  font-family: 'Lobster', cursive;
+}
+
+.custom-modal { 
+  border-radius: 0px !important; 
+  background-color: #f2f2f2 !important;
+}  
+
+.form-label{
+  font-weight: lighter;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.text-area{
+  border-radius: 5px !important;
+}
+
+.text-area1{
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
 }
 
 .home-container {

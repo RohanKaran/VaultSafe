@@ -36,6 +36,7 @@ export default function PasswordModal() {
 	return (
 		<>
 			<Modal
+				contentClassName="custom-modal"
 				id="modal"
 				show={show}
 				onHide={handleClose}
@@ -46,36 +47,39 @@ export default function PasswordModal() {
 			>
 				<Form onSubmit={handleSubmit}>
 					<Modal.Header closeButton>
-						<Modal.Title>ADD NEW PASSWORD</Modal.Title>
+						<Modal.Title className="modal-title">ADD NEW PASSWORD</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<div align="left">
 							<Form.Group className="mb-3" controlId="title">
-								<Form.Label>Title</Form.Label>
+								<Form.Label className="form-label">Title</Form.Label>
 								<Form.Control
 									type="text"
+									className="text-area"
 									placeholder="Enter a title"
 									required
 								/>
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="website">
-								<Form.Label>Website (optional)</Form.Label>
-								<Form.Control type="text" placeholder="Enter the web address" />
+								<Form.Label className="form-label">Website (optional)</Form.Label>
+								<Form.Control className="text-area" type="text" placeholder="Enter the web address" />
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="username" required>
-								<Form.Label>Username</Form.Label>
+								<Form.Label className="form-label">Username</Form.Label>
 								<Form.Control
 									type="text"
+									className="text-area"
 									placeholder="Enter username/email/phone no"
 								/>
 							</Form.Group>
 
 							<Form.Group className="mb-3" controlId="password">
-								<Form.Label>Password</Form.Label>
+								<Form.Label className="form-label">Password</Form.Label>
 								<Form.Label />
 								<InputGroup>
 									<Form.Control
 										type={showpwd}
+										className="text-area1"
 										placeholder="Password"
 										name="password"
 										autoComplete="current-password"
