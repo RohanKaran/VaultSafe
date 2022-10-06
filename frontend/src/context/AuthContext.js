@@ -93,6 +93,7 @@ export function AuthProvider({ children }) {
 			.catch((err) => {
 				setVariant("danger");
 				setAlert("Invalid email or password!");
+				setLoading(false);
 				setTimeout(() => {
 					setAlert(null);
 				}, 2000);
