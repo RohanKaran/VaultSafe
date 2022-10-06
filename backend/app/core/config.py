@@ -52,4 +52,4 @@ class ProductionConfig(Config):
         )
 
     FRONTEND_URL = "https://vaultsafe.netlify.app"
-    FRONTEND_URL_REGEX = re.compile("^https://deploy-preview-.*--vaultsafe.netlify.app")
+    FRONTEND_URL_REGEX = re.compile("^https://deploy-preview-.*--vaultsafe.netlify.app$")
