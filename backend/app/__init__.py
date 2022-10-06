@@ -10,10 +10,11 @@ from .schemas.generic import Response
 def create_app():
 
     app = FastAPI(
-        title="Password Manager",
-        version="0.1.0",
-        description="Password Manager Backend APIs",
+        title="VaultSafe",
+        version="0.2.0",
+        description="VaultSafe Backend APIs",
         debug=True,
+        docs_url=config.DOCS_URL,
     )
 
     register_extensions(app)

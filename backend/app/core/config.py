@@ -31,6 +31,7 @@ class DevelopmentConfig(Config):
 
     FRONTEND_URL = "*"
     FRONTEND_URL_REGEX = re.compile("/*/")
+    DOCS_URL: Optional[str] = "/docs"
 
 
 class ProductionConfig(Config):
@@ -55,3 +56,4 @@ class ProductionConfig(Config):
     FRONTEND_URL_REGEX = re.compile(
         "^https://deploy-preview-.*--vaultsafe.netlify.app$"
     )
+    DOCS_URL: Optional[str] = None
