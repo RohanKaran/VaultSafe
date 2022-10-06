@@ -55,7 +55,7 @@ export default function NoteCard(props) {
 			.catch((err) => console.log(err));
 	};
 	return (
-		<div className="password-card">
+		<div className="password-card" style={{ borderRadius: "10px", boxShadow: "0px 0px 4px 4px rgb(129, 130, 129)" }}>
 			<div>
 				<Modal
 					contentClassName="custom-modal"
@@ -65,11 +65,11 @@ export default function NoteCard(props) {
 					align="center"
 					centered
 					size="lg"
-					style={{ fontFamily: "Montserrat" }}
+					style={{ fontFamily: "Poppins, sans-serif" }}
 				>
 					<Form onSubmit={Update}>
 						<Modal.Header closeButton>
-							<Modal.Title>UPDATE NOTE</Modal.Title>
+							<Modal.Title style={{ fontFamily: "Poppins, sans-serif", fontWeight: "bold" }}>UPDATE NOTE</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							<div align="left">
@@ -96,7 +96,7 @@ export default function NoteCard(props) {
 							</div>
 						</Modal.Body>
 						<Modal.Footer>
-							<Button variant="success" type="submit">
+							<Button variant="success rounded-2" type="submit">
                 Update
 							</Button>
 						</Modal.Footer>
@@ -110,18 +110,18 @@ export default function NoteCard(props) {
 				align="center"
 				centered
 				size="md"
-				style={{ fontFamily: "Montserrat" }}
+				style={{ fontFamily: "Poppins, sans-serif" }}
 			>
-				<Modal.Header closeButton>DELETE NOTE</Modal.Header>
+				<Modal.Header style={{ fontFamily: "Poppins, sans-serif", fontWeight: "bold" }} closeButton>DELETE NOTE</Modal.Header>
 				<Modal.Body>
 					<div style={{ fontSize: "2rem" }}>Are you sure?</div>
           This action cannot be undone.
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="danger" onClick={Delete}>
+					<Button variant="danger rounded-2" onClick={Delete}>
             Yes
 					</Button>
-					<Button variant="outline-secondary" onClick={handleClose}>
+					<Button variant="outline-secondary rounded-2" onClick={handleClose}>
             Cancel
 					</Button>
 				</Modal.Footer>
@@ -130,7 +130,7 @@ export default function NoteCard(props) {
 			<Container>
 				<Row>
 					<Col>
-						<Row>
+						<Row  style={{ alignItems: "center" }}>
 							<Col xs="auto">
 								<div style={{ paddingRight: 0, marginRight: 0 }}>
 									<Image
@@ -141,13 +141,13 @@ export default function NoteCard(props) {
 								</div>
 							</Col>
 							<Col
-								style={{fontSize: "large", fontWeight: "500"}}
+								style={{fontSize: "max(2vw, 20px)", fontWeight: "500"}}
 							>
 								{props.note.title}
 							</Col>
 							<Col>
 								<Button
-									style={{ float: "right" }}
+									style={{ float: "right", border: "none" }}
 									className="bg-transparent"
 									onClick={handleShow}
 									variant="outline-danger"
@@ -158,11 +158,15 @@ export default function NoteCard(props) {
 									/>
 								</Button>
 								<Button
-									style={{ float: "right", marginRight: "1rem" }}
+									style={{ float: "right", marginRight: "1rem", border: "none" }}
 									onClick={handleShowUpdate}
 									variant="outline-success"
+									className="bg-transparent"
 								>
-									<FaPencilAlt style={{ marginBottom: 4 }} />
+									<FaPencilAlt 
+										style={{ marginBottom: 4 }}
+										className="text-success"
+									/>
 								</Button>
 								<Button
 									onClick={() => setOpen(!open)}
@@ -170,7 +174,7 @@ export default function NoteCard(props) {
 									aria-expanded={open}
 									className="bg-transparent"
 									variant="outline-dark"
-									style={{ float: "right", marginRight: "1rem" }}
+									style={{ float: "right", marginRight: "1rem", border: "none" }}
 								>
 									<div className="text-dark">
 										{open ? (
@@ -186,7 +190,7 @@ export default function NoteCard(props) {
 							<Col>
 								<div>
 									<Collapse in={open}>
-										<div id="example-collapse-text">
+										<div id="example-collapse-text" style={{ left: "2.8rem", position: "relative" }}>
 											{decrypt(props.note.content)}
 										</div>
 									</Collapse>

@@ -69,7 +69,7 @@ export default function PasswordCard(props) {
 		// eslint-disable-next-line
   }, []);
 	return (
-		<div className="password-card">
+		<div className="password-card" style={{ borderRadius: "10px", boxShadow: "0px 0px 4px 4px rgb(129, 130, 129)" }}>
 			<div>
 				<Modal
 					id="modal"
@@ -79,11 +79,11 @@ export default function PasswordCard(props) {
 					align="center"
 					centered
 					size="lg"
-					style={{ fontFamily: "Montserrat" }}
+					style={{ fontFamily: "Poppins, sans-serif" }}
 				>
 					<Form onSubmit={Update}>
 						<Modal.Header closeButton>
-							<Modal.Title>UPDATE PASSWORD</Modal.Title>
+							<Modal.Title style={{ fontFamily: "Poppins, sans-serif", fontWeight: "bold" }}>UPDATE PASSWORD</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							<div align="left">
@@ -140,7 +140,7 @@ export default function PasswordCard(props) {
 							</div>
 						</Modal.Body>
 						<Modal.Footer>
-							<Button variant="success" type="submit">
+							<Button variant="success rounded-2" type="submit">
                 Update
 							</Button>
 						</Modal.Footer>
@@ -154,18 +154,18 @@ export default function PasswordCard(props) {
 				align="center"
 				centered
 				size="md"
-				style={{ fontFamily: "Montserrat" }}
+				style={{ fontFamily: "Poppins, sans-serif" }}
 			>
-				<Modal.Header closeButton>DELETE PASSWORD</Modal.Header>
+				<Modal.Header style={{ fontFamily: "Poppins, sans-serif", fontWeight: "bold" }} closeButton>DELETE PASSWORD</Modal.Header>
 				<Modal.Body>
 					<div style={{ fontSize: "2rem" }}>Are you sure?</div>
           This action cannot be undone.
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="danger" onClick={Delete}>
+					<Button variant="danger rounded-2" onClick={Delete}>
             Yes
 					</Button>
-					<Button variant="outline-secondary" onClick={handleClose}>
+					<Button variant="outline-secondary rounded-2" onClick={handleClose}>
             Cancel
 					</Button>
 				</Modal.Footer>
@@ -198,7 +198,7 @@ export default function PasswordCard(props) {
 							</Col>
 							<Col>
 								<Button
-									style={{ float: "right" }}
+									style={{ float: "right", border: "none" }}
 									className="bg-transparent"
 									onClick={handleShow}
 									variant="outline-danger"
@@ -209,11 +209,12 @@ export default function PasswordCard(props) {
 									/>
 								</Button>
 								<Button
-									style={{ float: "right", marginRight: "1rem" }}
+									style={{ float: "right", marginRight: "1rem", border: "none" }}
 									onClick={handleShowUpdate}
 									variant="outline-success"
+									className="bg-transparent"
 								>
-									<FaPencilAlt style={{ marginBottom: 4 }} />
+									<FaPencilAlt className="text-success" style={{ marginBottom: 4 }} />
 								</Button>
 							</Col>
 						</Row>
