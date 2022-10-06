@@ -32,6 +32,7 @@ def register_extensions(app: FastAPI):
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
+        allow_origin_regex=config.FRONTEND_URL_REGEX
     )
 
 
