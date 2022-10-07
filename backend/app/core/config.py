@@ -1,3 +1,4 @@
+import re
 from typing import Any, Dict, Optional, Union
 
 from pydantic import BaseSettings, validator
@@ -29,6 +30,8 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
 
     FRONTEND_URL = "*"
+    FRONTEND_URL_REGEX = re.compile("/*/")
+    DOCS_URL: Optional[str] = "/docs"
 
 
 class ProductionConfig(Config):
@@ -50,3 +53,7 @@ class ProductionConfig(Config):
         )
 
     FRONTEND_URL = "https://vaultsafe.netlify.app"
+    FRONTEND_URL_REGEX = re.compile(
+        "^https://deploy-preview-.*--vaultsafe.netlify.app$"
+    )
+    DOCS_URL: Optional[str] = None
