@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { FaEraser, FaSignInAlt } from "react-icons/fa";
@@ -7,7 +7,7 @@ import { Logo } from "../components/Logo";
 import AuthContext from "../context/AuthContext";
 
 function LoginPage() {
-	const { loginUser } = useContext(AuthContext);
+	const { loginUser, loading } = useContext(AuthContext);
 	const [value, setValue] = useState({});
 	return (
 		<div align="center" id="login">
@@ -52,10 +52,18 @@ function LoginPage() {
 						</Form.Group>
 					</div>
 
-					<Button variant="success" type="submit">
-						<FaSignInAlt style={{ marginBottom: 4 }} />
-						{" "}
-            Login
+					<Button variant="success" type="submit" disabled={loading}>
+						{loading ? 			
+							<Spinner animation="border" role="status" size="sm">
+								<span className="visually-hidden">Loading...</span>
+							</Spinner> 
+							:
+							<>
+								<FaSignInAlt style={{ marginBottom: 4 }} />
+								{" "}Login
+							</>				
+						}						
+						
 					</Button>
 					<Button variant="outline-secondary" type="reset">
 						<FaEraser style={{ marginBottom: 4 }} />

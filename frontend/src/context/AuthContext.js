@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
 	const [user, setUser] = useState(() => (localStorage.getItem("authTokens")
 		? jwt_decode(localStorage.getItem("authTokens"))
 		: null));
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 	const [variant, setVariant] = useState(null);
 	const [currentUser, setCurrentUser] = useState(() => (localStorage.getItem("currentUser")
@@ -25,6 +25,7 @@ export function AuthProvider({ children }) {
 
 	const loginUser = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		await fetch(
 			`${process.env.REACT_APP_BACKEND_URL}/user/login/access-token/`,
 			{
@@ -92,6 +93,7 @@ export function AuthProvider({ children }) {
 			.catch((err) => {
 				setVariant("danger");
 				setAlert("Invalid email or password!");
+				setLoading(false);
 				setTimeout(() => {
 					setAlert(null);
 				}, 2000);
@@ -117,21 +119,27 @@ export function AuthProvider({ children }) {
 		setUser,
 		loginUser,
 		logoutUser,
+		loading,
 	};
 
 	useEffect(() => {
 		if (authTokens) {
 			setUser(jwt_decode(authTokens.access));
 		}
-		setLoading(false);
-	}, [authTokens, loading]);
+	}, [authTokens]);
+
+	useEffect(()=>{
+		if(currentUser){
+			setLoading(false);
+		}
+	}, [currentUser]);
 
 	return (
 		<AuthContext.Provider value={contextData}>
 			<div align="center">
 				{alert ? <Alert variant={variant}>{alert}</Alert> : null}
 			</div>
-			{loading ? null : children}
+			{children}
 		</AuthContext.Provider>
 	);
 }
