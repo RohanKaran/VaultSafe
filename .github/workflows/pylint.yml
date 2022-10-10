@@ -33,7 +33,7 @@ jobs:
       - name: Lint with black
         uses: wearerequired/lint-action@v2
         with:
-          github-token: ${{ secrets.github_token }}
+          github_token: ${{ secrets.github_token }}
           auto_fix: true
           black: true
           black_auto_fix: true
