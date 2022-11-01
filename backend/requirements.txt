@@ -47,7 +47,7 @@ SQLAlchemy==1.4.41
 stack-data==0.3.0
 starkbank-ecdsa==2.0.3
 traitlets==5.4.0
-typing_extensions==4.3.0
+typing_extensions==4.4.0
 uvicorn==0.18.3
 watchfiles==0.17.0
 wcwidth==0.2.5
