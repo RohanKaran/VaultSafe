@@ -1,4 +1,4 @@
-# fly.toml file generated for vaultsafe on 2022-11-28T01:22:10+05:30
+# fly.toml file generated for vaultsafe on 2022-11-28T01:49:29+05:30
 
 app = "vaultsafe"
 kill_signal = "SIGINT"
@@ -7,6 +7,7 @@ processes = []
 
 [build]
   builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/python"]
 
 [env]
   PORT = "8080"
