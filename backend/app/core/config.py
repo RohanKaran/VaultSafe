@@ -56,4 +56,3 @@ class ProductionConfig(Config):
     FRONTEND_URL_REGEX = re.compile(
         "^https://deploy-preview-.*--vaultsafe.netlify.app$"
     )
-    DOCS_URL: Optional[str] = None
