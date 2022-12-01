@@ -1,5 +1,5 @@
 ﻿alembic==1.8.1
-anyio==3.6.1
+anyio==3.6.2
 asttokens==2.0.8
 Authlib==1.0.1
 backcall==0.2.0
