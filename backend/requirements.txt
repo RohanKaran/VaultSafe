@@ -1,4 +1,4 @@
-﻿alembic==1.8.1
+﻿alembic==1.9.1
 fastapi==0.85.0
 gunicorn==20.1.0
 itsdangerous==2.1.2
