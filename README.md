@@ -81,3 +81,5 @@ npm start
 ### Default Local Credentials
 - Email: `user@example.com`
 - Password: `localpassword`
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=2db859a6e9f9&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
