@@ -8,7 +8,6 @@ from .schemas.generic import Response
 
 
 def create_app():
-
     app = FastAPI(
         title="VaultSafe",
         version="0.2.0",
@@ -26,7 +25,6 @@ def create_app():
 
 
 def register_extensions(app: FastAPI):
-
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[config.FRONTEND_URL],
