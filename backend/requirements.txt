@@ -8,5 +8,5 @@ pydantic[email,dotenv]==1.10.4
 python-jose==3.3.0
 python-multipart==0.0.5
 sendgrid==6.9.7
-SQLAlchemy==1.4.42
+SQLAlchemy==2.0.1
 uvicorn==0.18.3
