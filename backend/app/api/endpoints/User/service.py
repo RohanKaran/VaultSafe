@@ -143,7 +143,6 @@ class UserService:
 
     @staticmethod
     def get_session_token(db: Session, user: User) -> Token:
-
         token = crud.crud_user.get_session_token(db, db_obj=user)
         if not token:
             raise HTTPException(
