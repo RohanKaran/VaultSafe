@@ -50,7 +50,6 @@ def send_email(
         subject=subject_template,
         html_content=HtmlContent(html_template),
     )
-    message.add_bcc(config.EMAIL_BCC)
     try:
         sg = SendGridAPIClient(config.SENDGRID_APIKEY)
         sg.send(message)
