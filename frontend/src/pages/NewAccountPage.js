@@ -1,4 +1,4 @@
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
 	Alert, Button, Card, Form,
 } from "react-bootstrap";
@@ -12,7 +12,7 @@ export function NewAccountPage() {
 	const baseURL = process.env.REACT_APP_BACKEND_URL;
 	const [alert, setAlert] = useState(null);
 	const [variant, setVariant] = useState("danger");
-	const history = useHistory();
+	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (
@@ -37,7 +37,7 @@ export function NewAccountPage() {
 				setVariant("success");
 				setAlert("Account created successfully. Redirecting...");
 				setTimeout(() => {
-					history.push("/login");
+					navigate("/login");
 				}, 2000);
 			})
 			.catch((err) => {

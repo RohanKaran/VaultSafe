@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
 	Col, Container, Row, Spinner,
 } from "react-bootstrap";
@@ -13,7 +13,7 @@ import { SideBar } from "../components/SideBar";
 function HomePage() {
 	const [passwords, setPasswords] = useState(null);
 	const api = useAxios();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getPasswords = async () => await api
@@ -21,7 +21,7 @@ function HomePage() {
 			.then((r) => setPasswords(r.data))
 			.catch((e) => {
 				if (e.status === 401 || e.status === 403) {
-					history.push("/login");
+					navigate("/login");
 				}
 				console.log(e);
 			});

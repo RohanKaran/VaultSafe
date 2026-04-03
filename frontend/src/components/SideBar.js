@@ -15,13 +15,13 @@ import {
 	FaPencilAlt,
 	FaSignOutAlt,
 } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useContext } from "react";
 import { Image } from "react-bootstrap";
 import AuthContext from "../context/AuthContext";
 
 export function SideBar() {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { currentUser, logoutUser } = useContext(AuthContext);
 
 	return (
@@ -43,12 +43,12 @@ export function SideBar() {
 			</SidebarHeader>
 			<SidebarContent>
 				<Menu iconShape="square">
-					<MenuItem icon={<FaLock />} onClick={() => history.push("/")}>
+					<MenuItem icon={<FaLock />} onClick={() => navigate("/")}>
             Passwords
 					</MenuItem>
 					<MenuItem
 						icon={<FaPencilAlt />}
-						onClick={() => history.push("/notes")}
+						onClick={() => navigate("/notes")}
 					>
             Secure Notes
 					</MenuItem>

@@ -1,9 +1,9 @@
 import React from "react";
 import {
 	BrowserRouter as Router,
-	Redirect,
+	Navigate,
 	Route,
-	Switch,
+	Routes,
 } from "react-router-dom";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -19,19 +19,14 @@ export default function App() {
 		<div>
 			<Router>
 				<AuthProvider>
-					<Switch>
-						<ProtectedRoute component={HomePage} path="/" exact />
-						<ProtectedRoute component={NotePage} path="/notes" exact />
-						<LoginRoute component={RegisterPage} path="/register" exact />
-						<LoginRoute component={LoginPage} path="/login" exact />
-						<LoginRoute
-							component={NewAccountPage}
-							path="/new-account/:token"
-						/>
-						<Route path={"/*"}>
-							<Redirect to="/" />
-						</Route>
-					</Switch>
+					<Routes>
+						<Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+						<Route path="/notes" element={<ProtectedRoute><NotePage /></ProtectedRoute>} />
+						<Route path="/register" element={<LoginRoute><RegisterPage /></LoginRoute>} />
+						<Route path="/login" element={<LoginRoute><LoginPage /></LoginRoute>} />
+						<Route path="/new-account/:token" element={<LoginRoute><NewAccountPage /></LoginRoute>} />
+						<Route path="*" element={<Navigate to="/" replace />} />
+					</Routes>
 				</AuthProvider>
 			</Router>
 		</div>

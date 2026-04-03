@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
 	Col, Container, Row, Spinner,
 } from "react-bootstrap";
@@ -13,7 +13,7 @@ import NoteCard from "../components/NoteCard";
 export function NotePage() {
 	const [notes, setNotes] = useState(null);
 	const api = useAxios();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const getNotes = async () => await api.get("/note/");
 
@@ -22,7 +22,7 @@ export function NotePage() {
 			.then((r) => setNotes(r.data))
 			.catch((e) => {
 				if (e.status === 401) {
-					history.push("/login");
+					navigate("/login");
 				}
 				console.log(e);
 			});

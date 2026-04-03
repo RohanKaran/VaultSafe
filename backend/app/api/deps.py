@@ -6,7 +6,7 @@ from app.models import User
 from app.schemas.token import TokenPayload
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
+import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
@@ -32,7 +32,7 @@ def get_current_user(
     try:
         payload = jwt.decode(token, config.SECRET_KEY, algorithms=[security.ALGORITHM])
         token_data = TokenPayload(**payload)
-    except (jwt.JWTError, ValidationError) as e:
+    except (jwt.InvalidTokenError, ValidationError) as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",

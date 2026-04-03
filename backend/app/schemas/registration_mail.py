@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class RegistrationMailBase(BaseModel):
@@ -20,5 +20,4 @@ class RegistrationMailClient(RegistrationMailBase):
     datetime: datetime
     email: EmailStr
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

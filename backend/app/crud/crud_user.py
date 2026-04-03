@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 
 from ..core import config
 from ..core.security import get_password_hash
@@ -22,10 +23,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return self._create_db_object(db=db, db_obj=new_user)
 
     def get_by_email(self, db: Session, *, email: str):
-        return db.query(User).where(User.email == email).first()
+        return db.execute(select(User).where(User.email == email)).scalars().first()
 
     def get_by_username(self, db: Session, *, username: str):
-        return db.query(User).where(User.username == username).first()
+        return db.execute(select(User).where(User.username == username)).scalars().first()
 
     def get_session_token(self, db: Session, *, db_obj: User) -> Optional[str]:
         if (
@@ -51,7 +52,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_session_token(
         self, db: Session, *, session_token: str
     ) -> Optional[User]:
-        user = db.query(User).filter(User.session_token == session_token).first()  # type: ignore
+        user = db.execute(select(User).filter(User.session_token == session_token)).scalars().first()
         if not user or user.session_expiration < datetime.now(
             user.session_expiration.tzinfo
         ):

@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 
 const AuthContext = createContext();
@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
 		? JSON.parse(localStorage.getItem("currentUser"))
 		: null));
 
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const loginUser = async (e) => {
 		e.preventDefault();
@@ -107,7 +107,7 @@ export function AuthProvider({ children }) {
 		setCurrentUser(null);
 		localStorage.removeItem("authTokens");
 		localStorage.removeItem("currentUser");
-		history.push("/login");
+		navigate("/login");
 	};
 
 	const contextData = {

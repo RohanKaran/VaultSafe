@@ -4,7 +4,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaEye, FaPlus } from "react-icons/fa";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { encryptWithIV } from "../utils/crypto";
 import useAxios from "../utils/useAxios";
 
@@ -14,7 +14,7 @@ export default function PasswordModal() {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const [showpwd, setShowpwd] = useState("password");
-	const history = useHistory();
+	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const encryptedPassword = encryptWithIV(e.target.password.value);
@@ -28,7 +28,7 @@ export default function PasswordModal() {
 			})
 			.then(() => {
 				handleClose();
-				history.push("/");
+				navigate("/");
 				window.location.reload();
 			})
 			.catch((err) => alert(err.data));

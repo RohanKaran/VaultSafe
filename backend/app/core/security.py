@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional
 
-from jose import jwt
+import jwt
 from passlib.context import CryptContext
 
 from . import config

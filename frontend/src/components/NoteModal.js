@@ -2,7 +2,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaPlus } from "react-icons/fa";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { encrypt } from "../utils/crypto";
 import useAxios from "../utils/useAxios";
 
@@ -11,7 +11,7 @@ export default function NoteModal() {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		await api
@@ -21,7 +21,7 @@ export default function NoteModal() {
 			})
 			.then(() => {
 				handleClose();
-				history.push("/notes");
+				navigate("/notes");
 				window.location.reload();
 			})
 			.catch((err) => console.log(err.data));

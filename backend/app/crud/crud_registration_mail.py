@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 
 from ..core.utils import random_hash
 from ..crud.base import CRUDBase
@@ -16,7 +17,7 @@ class CRUDRegistrationMail(
         )
 
     def get_by_email(self, db: Session, *, email: str) -> RegistrationMail:
-        return db.query(RegistrationMail).where(RegistrationMail.email == email).first()
+        return db.execute(select(RegistrationMail).where(RegistrationMail.email == email)).scalars().first()
 
 
 crud_registration_mail = CRUDRegistrationMail(RegistrationMail)

@@ -1,10 +1,13 @@
-import { Redirect, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import React, { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-function ProtectedRoute({ children, ...rest }) {
+function ProtectedRoute({ children }) {
 	const { user } = useContext(AuthContext);
-	return <Route {...rest}>{!user ? <Redirect to="/login" /> : children}</Route>;
+	if (!user) {
+		return <Navigate to="/login" replace />;
+	}
+	return children;
 }
 
 export default ProtectedRoute;
