@@ -27,7 +27,7 @@ def register(
     server_host = config.FRONTEND_URL
     if request_origin and (
         request_origin == config.FRONTEND_URL
-        or bool(config.FRONTEND_URL_REGEX.match(request_origin))
+        or config.FRONTEND_URL_REGEX.match(request_origin)
     ):
         server_host = request_origin
 
