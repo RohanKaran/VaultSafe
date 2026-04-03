@@ -10,6 +10,7 @@ class UserBase(BaseModel):
 
 class UserCreateClient(UserBase):
     password: str
+    turnstile_token: str
 
 
 class UserCreate(UserBase):
