@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from ..core import config
 from ..core.security import get_password_hash
@@ -13,20 +13,22 @@ from ..schemas.user import UserCreate, UserUpdate
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
-    def create(self, db: Session, *, user: UserCreate) -> User:
+    def create(self, db: Session, *, obj_in: UserCreate) -> User:
         new_user = User(
             id=random_hash(),
-            username=user.username,
-            email=user.email,
-            password=get_password_hash(user.password),
+            username=obj_in.username,
+            email=obj_in.email,
+            password=get_password_hash(obj_in.password),
         )
         return self._create_db_object(db=db, db_obj=new_user)
 
-    def get_by_email(self, db: Session, *, email: str):
+    def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
         return db.execute(select(User).where(User.email == email)).scalars().first()
 
-    def get_by_username(self, db: Session, *, username: str):
-        return db.execute(select(User).where(User.username == username)).scalars().first()
+    def get_by_username(self, db: Session, *, username: str) -> Optional[User]:
+        return (
+            db.execute(select(User).where(User.username == username)).scalars().first()
+        )
 
     def get_session_token(self, db: Session, *, db_obj: User) -> Optional[str]:
         if (
@@ -41,7 +43,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return self.create_session_token(db, db_obj)
 
     def create_session_token(self, db: Session, db_obj: User) -> Optional[str]:
-        db_obj.session_token = random_hash()  # type: ignore
+        db_obj.session_token = random_hash()
         db_obj.session_expiration = datetime.now(timezone.utc) + timedelta(
             days=config.SESSION_TOKEN_EXPIRE_DAYS
         )
@@ -52,10 +54,14 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_session_token(
         self, db: Session, *, session_token: str
     ) -> Optional[User]:
-        user = db.execute(select(User).filter(User.session_token == session_token)).scalars().first()
-        if not user or user.session_expiration < datetime.now(
-            user.session_expiration.tzinfo
-        ):
+        user = (
+            db.execute(select(User).filter(User.session_token == session_token))
+            .scalars()
+            .first()
+        )
+        if not user or not user.session_expiration:
+            return None
+        if user.session_expiration < datetime.now(user.session_expiration.tzinfo):
             return None
         return user
 

@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, cast
 
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from ..core.utils import random_hash
 from ..crud.base import CRUDBase
@@ -23,7 +23,12 @@ class CRUDPassword(CRUDBase[Password, PasswordCreate, PasswordUpdate]):
         return self._create_db_object(db=db, db_obj=password)
 
     def get_all_by_user_id(self, db: Session, *, user_id: str) -> List[Password]:
-        return db.execute(select(Password).where(Password.user_id == user_id)).scalars().all()
+        return cast(
+            List[Password],
+            db.execute(select(Password).where(Password.user_id == user_id))
+            .scalars()
+            .all(),
+        )
 
 
 crud_password = CRUDPassword(Password)

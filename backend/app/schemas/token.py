@@ -8,4 +8,4 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     user_email: EmailStr
-    username: str = None
+    username: str | None = None

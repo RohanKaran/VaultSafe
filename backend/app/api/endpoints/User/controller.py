@@ -1,6 +1,7 @@
 from typing import Any
 
 from app.api import deps
+from app.core import config
 from app.models import User
 from app.schemas.generic import Response
 from app.schemas.token import Token
@@ -22,9 +23,19 @@ def register(
     """
     Register new user.
     """
+    request_origin = request.headers.get("origin")
+    server_host = config.FRONTEND_URL
+    if request_origin and (
+        request_origin == config.FRONTEND_URL
+        or config.FRONTEND_URL_REGEX.match(request_origin)
+    ):
+        server_host = request_origin
+
     return Response(
         detail=UserService.register(
-            db=db, user=user, server_host=request.headers.get("origin")
+            db=db,
+            user=user,
+            server_host=server_host,
         )
     )
 

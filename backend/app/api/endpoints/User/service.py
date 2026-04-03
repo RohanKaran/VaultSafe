@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Dict
 
 from app.core import security, utils
@@ -32,15 +32,13 @@ class UserService:
             email=user.email,
             username=user.username,
         )
-        # To create account locally
-        print(token)
 
         registration_mail = crud.crud_registration_mail.get_by_email(
             db=db, email=user.email
         )
         if registration_mail:
-            if datetime.utcnow() - registration_mail.datetime < timedelta(hours=20):
-                print(registration_mail.datetime - datetime.utcnow())
+            now = utils.get_current_time()
+            if now - registration_mail.sent_at < timedelta(hours=20):
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "
@@ -59,7 +57,7 @@ class UserService:
                 status_code=status.HTTP_400_BAD_REQUEST, detail="Could not send email."
             )
         if registration_mail:
-            registration_mail.datetime = datetime.utcnow()
+            registration_mail.sent_at = utils.get_current_time()
             crud.crud_registration_mail.update(
                 db=db,
                 db_obj=registration_mail,
@@ -82,6 +80,11 @@ class UserService:
             )
 
         _token_payload = TokenPayload(**token_payload)
+        if not _token_payload.username:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="The token is invalid or expired.",
+            )
         if crud.crud_user.get_by_email(db=db, email=_token_payload.user_email):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
@@ -93,7 +96,7 @@ class UserService:
             )
         user = crud.crud_user.create(
             db=db,
-            user=UserCreate(
+            obj_in=UserCreate(
                 username=_token_payload.username,
                 email=_token_payload.user_email,
                 password=password,

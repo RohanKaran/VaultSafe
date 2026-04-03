@@ -1,9 +1,9 @@
 from typing import List
 
 from app import crud
+from app.models.password import Password
 from app.schemas.generic import Response
 from app.schemas.password import (
-    PasswordClient,
     PasswordCreate,
     PasswordCreateClient,
     PasswordUpdate,
@@ -18,7 +18,7 @@ class PasswordService:
     def add_password(
         db: Session, user_id: str, password: PasswordCreateClient
     ) -> Response:
-        password = crud.crud_password.create(
+        created_password = crud.crud_password.create(
             db=db,
             obj_in=PasswordCreate(
                 password=password.password,
@@ -29,19 +29,24 @@ class PasswordService:
                 username=password.username,
             ),
         )
-        if not password:
+        if not created_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully created")
 
     @staticmethod
-    def get_password_by_id(db: Session, id: str) -> PasswordClient:
-        return crud.crud_password.get(db=db, id=id)
+    def get_password_by_id(db: Session, id: str) -> Password:
+        password = crud.crud_password.get(db=db, id=id)
+        if not password:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Password not found"
+            )
+        return password
 
     @staticmethod
-    def get_all_by_user_id(db: Session, user_id: str) -> List[PasswordClient]:
+    def get_all_by_user_id(db: Session, user_id: str) -> List[Password]:
         return crud.crud_password.get_all_by_user_id(db=db, user_id=user_id)
 
     @staticmethod
@@ -54,7 +59,7 @@ class PasswordService:
         deleted_password = crud.crud_password.remove(db=db, id=id)
         if not deleted_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully deleted")
@@ -81,7 +86,7 @@ class PasswordService:
         )
         if not updated_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully updated")

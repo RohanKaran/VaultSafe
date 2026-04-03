@@ -3,7 +3,7 @@ name: PyLint
 on:
   push:
     branches:
-      - "**"
+      - "master"
     paths:
       - "backend/**"
       - ".github/workflows/pylint.yml"
@@ -26,19 +26,36 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: backend/requirements.txt
       - name: Install neccessary packages
         run: |
-          python -m pip install --upgrade pip
-          pip install black isort
-      - name: Lint with black
-        uses: wearerequired/lint-action@v2
-        with:
-          github_token: ${{ secrets.github_token }}
-          auto_fix: true
-          black: true
-          black_auto_fix: true
-      - name: Sort imports
+          python -m venv backend/.venv
+          backend/.venv/bin/python -m pip install --upgrade pip
+          backend/.venv/bin/pip install -r backend/requirements.txt
+          backend/.venv/bin/pip install ruff pyrefly
+      - name: Sort imports with Ruff
         run: |
-          isort . --profile black
-          git commit -am "sorted imports" || echo No isort changes to commit! 
-          git push
+          backend/.venv/bin/ruff check . --select I --fix
+      - name: Format with Ruff
+        run: |
+          backend/.venv/bin/ruff format .
+      - name: Check types with Pyrefly
+        continue-on-error: false
+        run: |
+          backend/.venv/bin/pyrefly check
+      - name: Commit autofixes
+        run: |
+          if git diff --quiet; then
+            echo "No Ruff changes to commit!"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Apply Ruff formatting"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}

@@ -17,7 +17,7 @@ class RegistrationMailUpdate(RegistrationMailBase):
 
 class RegistrationMailClient(RegistrationMailBase):
     id: str
-    datetime: datetime
+    sent_at: datetime
     email: EmailStr
 
     model_config = ConfigDict(from_attributes=True)

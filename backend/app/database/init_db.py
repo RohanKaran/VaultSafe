@@ -12,7 +12,7 @@ def init_db(db: Session) -> None:
 
     crud.crud_user.create(
         db=db,
-        user=UserCreate(
+        obj_in=UserCreate(
             username="localuser",
             email="user@example.com",
             password="localpassword",
