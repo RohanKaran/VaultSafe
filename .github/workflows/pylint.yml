@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Install neccessary packages
         run: |
           python -m pip install --upgrade pip
@@ -38,5 +39,11 @@ jobs:
           ruff format .
       - name: Commit autofixes
         run: |
-          git commit -am "Apply Ruff formatting" || echo No Ruff changes to commit!
-          git push
+          if git diff --quiet; then
+            echo "No Ruff changes to commit!"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Apply Ruff formatting"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
