@@ -32,8 +32,6 @@ class UserService:
             email=user.email,
             username=user.username,
         )
-        # To create account locally
-        print(token)
 
         registration_mail = crud.crud_registration_mail.get_by_email(
             db=db, email=user.email
@@ -41,7 +39,6 @@ class UserService:
         if registration_mail:
             now = utils.get_current_time()
             if now - registration_mail.sent_at < timedelta(hours=20):
-                print(registration_mail.sent_at - now)
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "

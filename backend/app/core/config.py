@@ -28,6 +28,13 @@ class Config(BaseSettings):
         env_file=str(ENV_FILE), env_file_encoding="utf-8", extra="ignore"
     )
 
+    @field_validator("DEBUG", mode="before")
+    @classmethod
+    def normalize_debug(cls, value: Any) -> Any:
+        if isinstance(value, str) and value.lower() == "release":
+            return False
+        return value
+
 
 class DevelopmentConfig(Config):
     DEBUG: bool = True

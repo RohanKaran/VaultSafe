@@ -12,15 +12,10 @@ from starlette import status
 class NoteService:
     @staticmethod
     def add_note(db: Session, user_id: str, note: NoteCreateClient) -> Response:
-        created_note = crud.crud_note.create(
+        crud.crud_note.create(
             db=db,
             obj_in=NoteCreate(content=note.content, user_id=user_id, title=note.title),
         )
-        if not created_note:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Something went wrong",
-            )
         return Response(detail="Successfully created")
 
     @staticmethod

@@ -6,7 +6,7 @@ from app.models import User
 from app.schemas.generic import Response
 from app.schemas.token import Token
 from app.schemas.user import UserClient, UserCreateClient
-from fastapi import Body, Depends, Path
+from fastapi import Body, Depends, Path, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -16,17 +16,26 @@ from .service import UserService
 
 @api.post("/register/", response_model=Response)
 def register(
+    request: Request,
     db: Session = Depends(deps.get_db),
     user: UserCreateClient = Body(...),
 ) -> Any:
     """
     Register new user.
     """
+    request_origin = request.headers.get("origin")
+    server_host = config.FRONTEND_URL
+    if request_origin and (
+        request_origin == config.FRONTEND_URL
+        or bool(config.FRONTEND_URL_REGEX.match(request_origin))
+    ):
+        server_host = request_origin
+
     return Response(
         detail=UserService.register(
             db=db,
             user=user,
-            server_host=config.FRONTEND_URL,
+            server_host=server_host,
         )
     )
 

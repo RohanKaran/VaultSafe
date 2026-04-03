@@ -26,5 +26,5 @@ class User(Base):
     )
     session_token: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
     session_expiration: Mapped[Optional[datetime]] = mapped_column(
-        DateTime, nullable=True
+        DateTime(timezone=True), nullable=True
     )
