@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -13,6 +13,9 @@ class RegistrationMail(Base):
     email: Mapped[str] = mapped_column(
         String(64), nullable=False, index=True, unique=True
     )
-    datetime: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    sent_at: Mapped[datetime] = mapped_column(
+        "datetime",
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
     )

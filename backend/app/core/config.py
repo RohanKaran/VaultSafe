@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
-from typing import Any, ClassVar, Optional, Pattern, Union
+from typing import Any, ClassVar, Optional, Pattern
+from urllib.parse import quote_plus
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -41,7 +42,11 @@ class DevelopmentConfig(Config):
     def assemble_db_connection(cls, v: Optional[str], info: Any) -> str:
         if v:
             return v
-        return f"postgresql://{info.data.get('POSTGRES_USER')}:{info.data.get('POSTGRES_PASSWORD')}@{info.data.get('POSTGRES_SERVER')}/{info.data.get('POSTGRES_DB') or ''}"
+        username = quote_plus(str(info.data.get("POSTGRES_USER") or ""))
+        password = quote_plus(str(info.data.get("POSTGRES_PASSWORD") or ""))
+        server = str(info.data.get("POSTGRES_SERVER") or "")
+        database = quote_plus(str(info.data.get("POSTGRES_DB") or ""))
+        return f"postgresql://{username}:{password}@{server}/{database}"
 
     FRONTEND_URL: str = "http://localhost:3000"
     FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile(
@@ -62,7 +67,11 @@ class ProductionConfig(Config):
     def assemble_db_connection(cls, v: Optional[str], info: Any) -> str:
         if v:
             return v
-        return f"postgresql://{info.data.get('POSTGRES_USER')}:{info.data.get('POSTGRES_PASSWORD')}@{info.data.get('POSTGRES_SERVER')}/{info.data.get('POSTGRES_DB') or ''}"
+        username = quote_plus(str(info.data.get("POSTGRES_USER") or ""))
+        password = quote_plus(str(info.data.get("POSTGRES_PASSWORD") or ""))
+        server = str(info.data.get("POSTGRES_SERVER") or "")
+        database = quote_plus(str(info.data.get("POSTGRES_DB") or ""))
+        return f"postgresql://{username}:{password}@{server}/{database}"
 
     FRONTEND_URL: str = "https://vaultsafe.netlify.app"
     FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile(

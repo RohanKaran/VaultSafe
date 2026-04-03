@@ -31,7 +31,7 @@ class PasswordService:
         )
         if not created_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully created")
@@ -59,7 +59,7 @@ class PasswordService:
         deleted_password = crud.crud_password.remove(db=db, id=id)
         if not deleted_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully deleted")
@@ -86,7 +86,7 @@ class PasswordService:
         )
         if not updated_password:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully updated")

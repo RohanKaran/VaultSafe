@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, cast
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -20,8 +20,9 @@ class CRUDNote(CRUDBase[Note, NoteCreate, NoteUpdate]):
         return self._create_db_object(db=db, db_obj=note)
 
     def get_all_by_user_id(self, db: Session, *, user_id: str) -> List[Note]:
-        return list(
-            db.execute(select(Note).where(Note.user_id == user_id)).scalars().all()
+        return cast(
+            List[Note],
+            db.execute(select(Note).where(Note.user_id == user_id)).scalars().all(),
         )
 
 

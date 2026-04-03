@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Dict
 
 from app.core import security, utils
@@ -39,8 +39,9 @@ class UserService:
             db=db, email=user.email
         )
         if registration_mail:
-            if datetime.utcnow() - registration_mail.datetime < timedelta(hours=20):
-                print(registration_mail.datetime - datetime.utcnow())
+            now = utils.get_current_time()
+            if now - registration_mail.sent_at < timedelta(hours=20):
+                print(registration_mail.sent_at - now)
                 raise HTTPException(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "
@@ -59,7 +60,7 @@ class UserService:
                 status_code=status.HTTP_400_BAD_REQUEST, detail="Could not send email."
             )
         if registration_mail:
-            registration_mail.datetime = datetime.utcnow()
+            registration_mail.sent_at = utils.get_current_time()
             crud.crud_registration_mail.update(
                 db=db,
                 db_obj=registration_mail,

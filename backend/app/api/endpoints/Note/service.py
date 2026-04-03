@@ -18,7 +18,7 @@ class NoteService:
         )
         if not created_note:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully created")
@@ -46,7 +46,7 @@ class NoteService:
         deleted_note = crud.crud_note.remove(db=db, id=id)
         if not deleted_note:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully deleted")
@@ -67,7 +67,7 @@ class NoteService:
         )
         if not updated_note:
             raise HTTPException(
-                status_code=status.HTTP_501_NOT_IMPLEMENTED,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Something went wrong",
             )
         return Response(detail="Successfully updated")

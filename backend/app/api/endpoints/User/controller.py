@@ -1,11 +1,12 @@
 from typing import Any
 
 from app.api import deps
+from app.core import config
 from app.models import User
 from app.schemas.generic import Response
 from app.schemas.token import Token
 from app.schemas.user import UserClient, UserCreateClient
-from fastapi import Body, Depends, Path, Request
+from fastapi import Body, Depends, Path
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -15,7 +16,6 @@ from .service import UserService
 
 @api.post("/register/", response_model=Response)
 def register(
-    request: Request,
     db: Session = Depends(deps.get_db),
     user: UserCreateClient = Body(...),
 ) -> Any:
@@ -26,8 +26,7 @@ def register(
         detail=UserService.register(
             db=db,
             user=user,
-            server_host=request.headers.get("origin")
-            or str(request.base_url).rstrip("/"),
+            server_host=config.FRONTEND_URL,
         )
     )
 
