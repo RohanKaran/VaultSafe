@@ -29,18 +29,20 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Install neccessary packages
         run: |
-          python -m pip install --upgrade pip
-          pip install ruff pyrefly
+          python -m venv backend/.venv
+          backend/.venv/bin/python -m pip install --upgrade pip
+          backend/.venv/bin/pip install -r backend/requirements.txt
+          backend/.venv/bin/pip install ruff pyrefly
       - name: Sort imports with Ruff
         run: |
-          ruff check . --select I --fix
+          backend/.venv/bin/ruff check . --select I --fix
       - name: Format with Ruff
         run: |
-          ruff format .
+          backend/.venv/bin/ruff format .
       - name: Check types with Pyrefly
         continue-on-error: false
         run: |
-          pyrefly check
+          backend/.venv/bin/pyrefly check
       - name: Commit autofixes
         run: |
           if git diff --quiet; then
