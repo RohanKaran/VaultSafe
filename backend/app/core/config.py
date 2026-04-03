@@ -51,7 +51,6 @@ class DevelopmentConfig(Config):
 
 
 class ProductionConfig(Config):
-    # SQLAlchemy config
     POSTGRES_SERVER: str = ""
     POSTGRES_USER: str = ""
     POSTGRES_PASSWORD: str = ""
