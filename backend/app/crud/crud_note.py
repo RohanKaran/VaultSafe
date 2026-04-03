@@ -1,7 +1,7 @@
 from typing import List
 
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from ..core.utils import random_hash
 from ..crud.base import CRUDBase

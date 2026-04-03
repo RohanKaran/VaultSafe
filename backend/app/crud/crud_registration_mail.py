@@ -1,5 +1,5 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from ..core.utils import random_hash
 from ..crud.base import CRUDBase
@@ -10,7 +10,9 @@ from ..schemas.registration_mail import RegistrationMailCreate, RegistrationMail
 class CRUDRegistrationMail(
     CRUDBase[RegistrationMail, RegistrationMailCreate, RegistrationMailUpdate]
 ):
-    def create(self, db: Session, *, obj_in: RegistrationMailCreate) -> RegistrationMail:
+    def create(
+        self, db: Session, *, obj_in: RegistrationMailCreate
+    ) -> RegistrationMail:
         return self._create_db_object(
             db=db, db_obj=RegistrationMail(id=random_hash(), email=obj_in.email)
         )

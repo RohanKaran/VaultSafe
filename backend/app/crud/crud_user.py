@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from ..core import config
 from ..core.security import get_password_hash
@@ -26,7 +26,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return db.execute(select(User).where(User.email == email)).scalars().first()
 
     def get_by_username(self, db: Session, *, username: str) -> Optional[User]:
-        return db.execute(select(User).where(User.username == username)).scalars().first()
+        return (
+            db.execute(select(User).where(User.username == username)).scalars().first()
+        )
 
     def get_session_token(self, db: Session, *, db_obj: User) -> Optional[str]:
         if (

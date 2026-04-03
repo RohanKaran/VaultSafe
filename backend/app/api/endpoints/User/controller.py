@@ -26,7 +26,8 @@ def register(
         detail=UserService.register(
             db=db,
             user=user,
-            server_host=request.headers.get("origin") or str(request.base_url).rstrip("/"),
+            server_host=request.headers.get("origin")
+            or str(request.base_url).rstrip("/"),
         )
     )
 
