@@ -9,7 +9,7 @@ class UserBase(BaseModel):
 
 
 class UserCreateClient(UserBase):
-    pass
+    password: str
 
 
 class UserCreate(UserBase):

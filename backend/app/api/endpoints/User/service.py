@@ -1,16 +1,14 @@
-from datetime import timedelta
 from typing import Dict
 
-from app.core import security, utils
+from app.core import security
 from app.core.security import verify_password
 from app.models.user import User
-from app.schemas.token import Token, TokenPayload
+from app.schemas.token import Token
 from app.schemas.user import UserCreate, UserCreateClient
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from .... import crud
-from ....schemas.registration_mail import RegistrationMailCreate, RegistrationMailUpdate
 
 
 class UserService:
@@ -28,47 +26,15 @@ class UserService:
                 detail="User with this username already exists",
             )
 
-        token = utils.generate_new_account_token(
-            email=user.email,
-            username=user.username,
+        crud.crud_user.create(
+            db=db,
+            obj_in=UserCreate(
+                username=user.username,
+                email=user.email,
+                password=user.password,
+            ),
         )
-
-        registration_mail = crud.crud_registration_mail.get_by_email(
-            db=db, email=user.email
-        )
-        if registration_mail:
-            now = utils.get_current_time()
-            if now - registration_mail.sent_at < timedelta(hours=20):
-                raise HTTPException(
-                    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                    detail="Registration mail was already sent from vaultsafe@rohankaran.tech, kindly check your spam "
-                    "folders.",
-                )
-
-        verification_mail = utils.send_new_account_email(
-            email_to=user.email,
-            token=token,
-            username=user.username,
-            server_host=server_host,
-        )
-
-        if not verification_mail:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail="Could not send email."
-            )
-        if registration_mail:
-            registration_mail.sent_at = utils.get_current_time()
-            crud.crud_registration_mail.update(
-                db=db,
-                db_obj=registration_mail,
-                obj_in=RegistrationMailUpdate(email=user.email),
-            )
-        else:
-            crud.crud_registration_mail.create(
-                db=db, obj_in=RegistrationMailCreate(email=user.email)
-            )
-
-        return "Email Sent"
+        return "Account created successfully"
 
     @staticmethod
     def create(db: Session, token: str, password: str) -> User:
