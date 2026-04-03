@@ -82,6 +82,11 @@ class UserService:
             )
 
         _token_payload = TokenPayload(**token_payload)
+        if not _token_payload.username:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="The token is invalid or expired.",
+            )
         if crud.crud_user.get_by_email(db=db, email=_token_payload.user_email):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
@@ -93,7 +98,7 @@ class UserService:
             )
         user = crud.crud_user.create(
             db=db,
-            user=UserCreate(
+            obj_in=UserCreate(
                 username=_token_payload.username,
                 email=_token_payload.user_email,
                 password=password,

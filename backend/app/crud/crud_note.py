@@ -20,7 +20,9 @@ class CRUDNote(CRUDBase[Note, NoteCreate, NoteUpdate]):
         return self._create_db_object(db=db, db_obj=note)
 
     def get_all_by_user_id(self, db: Session, *, user_id: str) -> List[Note]:
-        return db.execute(select(Note).where(Note.user_id == user_id)).scalars().all()
+        return list(
+            db.execute(select(Note).where(Note.user_id == user_id)).scalars().all()
+        )
 
 
 crud_note = CRUDNote(Note)

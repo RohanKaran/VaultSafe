@@ -1,9 +1,12 @@
 import re
-from typing import Any, Dict, Optional, Union
+from pathlib import Path
+from typing import Any, ClassVar, Optional, Pattern, Union
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic.networks import PostgresDsn
+
+ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
 class Config(BaseSettings):
@@ -21,15 +24,17 @@ class Config(BaseSettings):
     EMAIL_FROM: str = ""
     EMAIL_BCC: str = ""
 
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file=str(ENV_FILE), env_file_encoding="utf-8", extra="ignore"
+    )
 
 
 class DevelopmentConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
+    DEBUG: bool = True
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///db.sqlite"
 
-    FRONTEND_URL = "*"
-    FRONTEND_URL_REGEX = re.compile("/*/")
+    FRONTEND_URL: str = "*"
+    FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile("/*/")
     DOCS_URL: Optional[str] = "/docs"
 
 
@@ -39,17 +44,17 @@ class ProductionConfig(Config):
     POSTGRES_USER: str = ""
     POSTGRES_PASSWORD: str = ""
     POSTGRES_DB: str = ""
-    SQLALCHEMY_DATABASE_URI: Union[Optional[PostgresDsn], str]
+    SQLALCHEMY_DATABASE_URI: str = ""
 
     @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
     @classmethod
-    def assemble_db_connection(cls, v: Optional[str], info: Any) -> Any:
+    def assemble_db_connection(cls, v: Optional[str], info: Any) -> str:
         if v:
             return v
         return f"postgresql://{info.data.get('POSTGRES_USER')}:{info.data.get('POSTGRES_PASSWORD')}@{info.data.get('POSTGRES_SERVER')}/{info.data.get('POSTGRES_DB') or ''}"
 
-    FRONTEND_URL = "https://vaultsafe.netlify.app"
-    FRONTEND_URL_REGEX = re.compile(
+    FRONTEND_URL: str = "https://vaultsafe.netlify.app"
+    FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile(
         "^https://deploy-preview-.*--vaultsafe.netlify.app$"
     )
     DOCS_URL: Optional[str] = None

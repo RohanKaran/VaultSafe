@@ -1,10 +1,17 @@
 from datetime import datetime
 
 from app.database import Base
-from sqlalchemy import Column, DateTime, String
+from sqlalchemy import DateTime, String
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class RegistrationMail(Base):
-    id = Column(String(64), primary_key=True)
-    email = Column(String(64), nullable=False, index=True, unique=True)
-    datetime = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    __tablename__ = "registrationmail"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    email: Mapped[str] = mapped_column(
+        String(64), nullable=False, index=True, unique=True
+    )
+    datetime: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )

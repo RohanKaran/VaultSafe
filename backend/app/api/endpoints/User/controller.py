@@ -24,7 +24,9 @@ def register(
     """
     return Response(
         detail=UserService.register(
-            db=db, user=user, server_host=request.headers.get("origin")
+            db=db,
+            user=user,
+            server_host=request.headers.get("origin") or str(request.base_url).rstrip("/"),
         )
     )
 

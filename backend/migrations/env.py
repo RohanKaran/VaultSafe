@@ -26,7 +26,7 @@ target_metadata = Base.metadata
 # ... etc.
 from app.core import config as Config
 
-config.set_main_option("sqlalchemy.url", Config.SQLALCHEMY_DATABASE_URI)
+config.set_main_option("sqlalchemy.url", str(Config.SQLALCHEMY_DATABASE_URI))
 
 
 def run_migrations_offline() -> None:
@@ -61,7 +61,7 @@ def run_migrations_online() -> None:
 
     """
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+        config.get_section(config.config_ini_section) or {},
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

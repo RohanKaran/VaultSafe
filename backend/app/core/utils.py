@@ -23,7 +23,7 @@ def get_domain_from_email(email: str) -> str:
 def generate_new_account_token(email: str, username: str) -> str:
     serializer = URLSafeTimedSerializer(config.SECRET_KEY)
     data = {"user_email": email, "username": username}
-    return serializer.dumps(data, salt=config.SECRET_SALT)
+    return str(serializer.dumps(data, salt=config.SECRET_SALT))
 
 
 def verify_new_account_token(token: str) -> Optional[Dict[str, str]]:

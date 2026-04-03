@@ -23,7 +23,11 @@ class CRUDPassword(CRUDBase[Password, PasswordCreate, PasswordUpdate]):
         return self._create_db_object(db=db, db_obj=password)
 
     def get_all_by_user_id(self, db: Session, *, user_id: str) -> List[Password]:
-        return db.execute(select(Password).where(Password.user_id == user_id)).scalars().all()
+        return list(
+            db.execute(select(Password).where(Password.user_id == user_id))
+            .scalars()
+            .all()
+        )
 
 
 crud_password = CRUDPassword(Password)
