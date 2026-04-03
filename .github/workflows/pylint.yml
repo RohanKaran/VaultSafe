@@ -30,13 +30,17 @@ jobs:
       - name: Install neccessary packages
         run: |
           python -m pip install --upgrade pip
-          pip install ruff
+          pip install ruff pyrefly
       - name: Sort imports with Ruff
         run: |
           ruff check . --select I --fix
       - name: Format with Ruff
         run: |
           ruff format .
+      - name: Check types with Pyrefly
+        continue-on-error: false
+        run: |
+          pyrefly check
       - name: Commit autofixes
         run: |
           if git diff --quiet; then
