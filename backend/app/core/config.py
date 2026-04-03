@@ -28,6 +28,7 @@ class Config(BaseSettings):
     RESEND_API_KEY: str = ""
     EMAIL_FROM: str = ""
     EMAIL_BCC: str = ""
+    TURNSTILE_SECRET_KEY: str = ""
 
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE), env_file_encoding="utf-8", extra="ignore"
