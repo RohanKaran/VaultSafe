@@ -2,8 +2,8 @@ import uuid
 from datetime import datetime, timezone
 from typing import Dict, Optional
 
+import resend
 from itsdangerous import URLSafeTimedSerializer
-from sendgrid import HtmlContent, Mail, SendGridAPIClient
 
 from . import config
 
@@ -44,16 +44,17 @@ def send_email(
     subject_template: str = "",
     html_template: str = "",
 ) -> bool:
-    message = Mail(
-        from_email=config.EMAIL_FROM,
-        to_emails=[email_to],
-        subject=subject_template,
-        html_content=HtmlContent(html_template),
-    )
-    message.add_bcc(config.EMAIL_BCC)
     try:
-        sg = SendGridAPIClient(config.SENDGRID_APIKEY)
-        sg.send(message)
+        resend.api_key = config.RESEND_API_KEY
+        payload = {
+            "from": config.EMAIL_FROM,
+            "to": [email_to],
+            "subject": subject_template,
+            "html": html_template,
+        }
+        if config.EMAIL_BCC:
+            payload["bcc"] = [config.EMAIL_BCC]
+        resend.Emails.send(payload)
         return True
     except Exception as e:
         print(e)

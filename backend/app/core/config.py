@@ -24,8 +24,8 @@ class Config(BaseSettings):
     SESSION_TOKEN_EXPIRE_DAYS: int = 7
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 24
 
-    # Sendgrid Config
-    SENDGRID_APIKEY: str = ""
+    # Resend Config
+    RESEND_API_KEY: str = ""
     EMAIL_FROM: str = ""
     EMAIL_BCC: str = ""
 
