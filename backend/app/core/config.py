@@ -4,7 +4,6 @@ from typing import Any, ClassVar, Optional, Pattern, Union
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic.networks import PostgresDsn
 
 ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
@@ -31,10 +30,23 @@ class Config(BaseSettings):
 
 class DevelopmentConfig(Config):
     DEBUG: bool = True
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:///db.sqlite"
+    POSTGRES_SERVER: str = ""
+    POSTGRES_USER: str = ""
+    POSTGRES_PASSWORD: str = ""
+    POSTGRES_DB: str = ""
+    SQLALCHEMY_DATABASE_URI: str = ""
 
-    FRONTEND_URL: str = "*"
-    FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile("/*/")
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
+    @classmethod
+    def assemble_db_connection(cls, v: Optional[str], info: Any) -> str:
+        if v:
+            return v
+        return f"postgresql://{info.data.get('POSTGRES_USER')}:{info.data.get('POSTGRES_PASSWORD')}@{info.data.get('POSTGRES_SERVER')}/{info.data.get('POSTGRES_DB') or ''}"
+
+    FRONTEND_URL: str = "http://localhost:3000"
+    FRONTEND_URL_REGEX: ClassVar[Pattern[str]] = re.compile(
+        r"^http://(localhost|127\.0\.0\.1):3000$"
+    )
     DOCS_URL: Optional[str] = "/docs"
 
 

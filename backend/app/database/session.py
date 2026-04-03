@@ -5,7 +5,7 @@ from ..core import config
 
 database_uri = str(config.SQLALCHEMY_DATABASE_URI)
 
-if config.ENV == "DEV":
+if database_uri.startswith("sqlite"):
     engine = create_engine(
         database_uri,
         pool_pre_ping=True,
