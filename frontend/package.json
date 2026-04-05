@@ -23,7 +23,7 @@
     "start": "rsbuild dev",
     "build": "rsbuild build",
     "preview": "rsbuild preview",
-    "lint": "eslint **/*.{js,jsx}"
+    "lint": "eslint \"src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": [
