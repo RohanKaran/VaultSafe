@@ -2,8 +2,9 @@ from typing import Dict
 
 from app.core import security
 from app.core.security import verify_password
+from app.core.utils import verify_new_account_token
 from app.models.user import User
-from app.schemas.token import Token
+from app.schemas.token import Token, TokenPayload
 from app.schemas.user import UserCreate, UserCreateClient
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
@@ -38,7 +39,7 @@ class UserService:
 
     @staticmethod
     def create(db: Session, token: str, password: str) -> User:
-        token_payload = utils.verify_new_account_token(token)
+        token_payload = verify_new_account_token(token)
         if not token_payload:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,

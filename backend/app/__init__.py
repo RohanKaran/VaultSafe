@@ -6,6 +6,8 @@ from .api import api
 from .core import config
 from .schemas.generic import Response
 
+__all__ = ["create_app", "models"]
+
 
 def create_app():
     app = FastAPI(
