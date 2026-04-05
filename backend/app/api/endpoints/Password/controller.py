@@ -21,8 +21,12 @@ def create_password(
 
 
 @api.get("/get-password-by-id/{password_id}/", response_model=PasswordClient)
-def get_by_id(db: Session = Depends(deps.get_db), password_id: str = Path(...)) -> Any:
-    return PasswordService.get_password_by_id(db=db, id=password_id)
+def get_by_id(
+    db: Session = Depends(deps.get_db),
+    user: UserClient = Depends(deps.get_current_user),
+    password_id: str = Path(...),
+) -> Any:
+    return PasswordService.get_password_by_id(db=db, id=password_id, user_id=user.id)
 
 
 @api.get("/", response_model=List[PasswordClient])

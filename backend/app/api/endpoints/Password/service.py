@@ -37,9 +37,9 @@ class PasswordService:
         return Response(detail="Successfully created")
 
     @staticmethod
-    def get_password_by_id(db: Session, id: str) -> Password:
+    def get_password_by_id(db: Session, id: str, user_id: str) -> Password:
         password = crud.crud_password.get(db=db, id=id)
-        if not password:
+        if (not password) or password.user_id != user_id:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Password not found"
             )
