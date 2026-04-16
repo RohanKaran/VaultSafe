@@ -1,6 +1,6 @@
-from typing import Dict
+from typing import Dict, Optional
 
-from app.core import security
+from app.core import security, turnstile, utils
 from app.core.security import verify_password
 from app.core.utils import verify_new_account_token
 from app.models.user import User
@@ -14,7 +14,9 @@ from .... import crud
 
 class UserService:
     @staticmethod
-    def register(db: Session, user: UserCreateClient, server_host: str) -> str:
+    def register(
+        db: Session, user: UserCreateClient, remote_ip: Optional[str] = None
+    ) -> str:
         if crud.crud_user.get_by_email(db=db, email=user.email):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
@@ -25,6 +27,15 @@ class UserService:
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="User with this username already exists",
+            )
+
+        captcha_valid, _error_codes = turnstile.validate_turnstile_token(
+            user.turnstile_token, remote_ip=remote_ip
+        )
+        if not captcha_valid:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Captcha verification failed. Please try again.",
             )
 
         crud.crud_user.create(
@@ -69,12 +80,6 @@ class UserService:
                 password=password,
             ),
         )
-
-        registration_mail = crud.crud_registration_mail.get_by_email(
-            db=db, email=user.email
-        )
-        if registration_mail:
-            crud.crud_registration_mail.remove(db=db, id=registration_mail.id)
 
         return user
 

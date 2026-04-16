@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,8 +9,73 @@ import { Logo } from "../components/Logo";
 function RegisterPage() {
 	const [alert, setAlert] = useState(null);
 	const [variant, setVariant] = useState("danger");
+	const [turnstileToken, setTurnstileToken] = useState("");
 	const baseURL = process.env.REACT_APP_BACKEND_URL;
+	const siteKey = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 	const navigate = useNavigate();
+	const turnstileContainerRef = useRef(null);
+	const turnstileWidgetIdRef = useRef(null);
+
+	const resetTurnstile = () => {
+		setTurnstileToken("");
+		if (
+			typeof window !== "undefined"
+			&& window.turnstile
+			&& turnstileWidgetIdRef.current !== null
+		) {
+			window.turnstile.reset(turnstileWidgetIdRef.current);
+		}
+	};
+
+	useEffect(() => {
+		if (!siteKey || !turnstileContainerRef.current || typeof window === "undefined") {
+			return undefined;
+		}
+
+		let isCancelled = false;
+
+		const renderTurnstile = () => {
+			if (
+				isCancelled
+				|| !window.turnstile
+				|| !turnstileContainerRef.current
+				|| turnstileWidgetIdRef.current !== null
+			) {
+				return;
+			}
+
+			turnstileWidgetIdRef.current = window.turnstile.render(
+				turnstileContainerRef.current,
+				{
+					sitekey: siteKey,
+					callback: (token) => {
+						setTurnstileToken(token);
+						setAlert(null);
+					},
+					"expired-callback": () => {
+						setTurnstileToken("");
+					},
+					"error-callback": () => {
+						setTurnstileToken("");
+						setVariant("danger");
+						setAlert("Captcha check failed. Please try again.");
+					},
+				},
+			);
+		};
+
+		renderTurnstile();
+		const intervalId = window.setInterval(renderTurnstile, 250);
+
+		return () => {
+			isCancelled = true;
+			window.clearInterval(intervalId);
+			if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+				window.turnstile.remove(turnstileWidgetIdRef.current);
+				turnstileWidgetIdRef.current = null;
+			}
+		};
+	}, [siteKey]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -29,17 +94,24 @@ function RegisterPage() {
 			setAlert("Password should be greater than 6");
 			return;
 		}
+		if (siteKey && !turnstileToken) {
+			setVariant("warning");
+			setAlert("Please complete the captcha.");
+			return;
+		}
 		await axios
 			.post(`${baseURL}/user/register/`, {
 				username: e.target["form-username"].value,
 				email: e.target.formBasicEmail.value,
 				password: e.target.formPassword.value,
+				turnstile_token: turnstileToken,
 			})
 			.then(() => {
 				e.target["form-username"].value = null;
 				e.target.formBasicEmail.value = null;
 				e.target.formPassword.value = null;
 				e.target.formConfirmPassword.value = null;
+				resetTurnstile();
 				setVariant("success");
 				setAlert("Account created successfully. Redirecting...");
 				setTimeout(() => {
@@ -47,8 +119,9 @@ function RegisterPage() {
 				}, 1500);
 			})
 			.catch((err) => {
+				resetTurnstile();
 				setVariant("danger");
-				setAlert(err.response.data.detail.toString());
+				setAlert(err.response?.data?.detail?.toString() || "Signup failed.");
 			});
 	};
 
@@ -102,6 +175,14 @@ function RegisterPage() {
 								required
 							/>
 						</Form.Group>
+						{siteKey ? (
+							<Form.Group className="mb-3">
+								<div ref={turnstileContainerRef} />
+								<Form.Text className="text-muted">
+                Complete the captcha before signing up.
+								</Form.Text>
+							</Form.Group>
+						) : null}
 					</div>
 
 					<Button variant="success" type="submit">
