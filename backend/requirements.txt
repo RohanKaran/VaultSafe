@@ -2,7 +2,7 @@ bcrypt<5
 alembic==1.13.1
 fastapi==0.109.2
 gunicorn==21.2.0
-itsdangerous==2.1.2
+itsdangerous==2.2.0
 passlib[bcrypt]==1.7.4
 psycopg2-binary==2.9.9
 pydantic[email]==2.6.1
