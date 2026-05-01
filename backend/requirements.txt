@@ -8,7 +8,7 @@ psycopg2-binary==2.9.9
 pydantic[email]==2.6.1
 pydantic-settings==2.1.0
 PyJWT==2.8.0
-python-multipart==0.0.22
+python-multipart==0.0.27
 resend==2.6.0
 SQLAlchemy==2.0.25
 uvicorn==0.27.1
