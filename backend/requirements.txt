@@ -1,5 +1,5 @@
 bcrypt<5
-alembic==1.13.1
+alembic==1.18.4
 fastapi==0.109.2
 gunicorn==21.2.0
 itsdangerous==2.1.2
